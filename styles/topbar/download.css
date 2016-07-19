@@ -1,0 +1,25 @@
+.tbItem#download::before{
+    display:block;
+    position: relative;
+    content: "";
+    width: 22px;
+    height: 8px;
+    background: transparent;
+    border: 3px solid #EcF0F1;
+    border-top: none;
+    border-radius: 0px 0px 2px 2px;
+    left: 5px;
+    top: 17px;
+
+}
+.tbItem#download::after {
+    display:block;
+    position: relative;
+    content: "";
+    width: 0px;
+    border: solid 10px transparent;
+    border-top: solid 10px #EcF0F1;
+    left: 6px;
+    top: 0px;
+
+}

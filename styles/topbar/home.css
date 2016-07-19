@@ -1,0 +1,40 @@
+#topbar > #home::before{
+    display:block;
+    position: relative;
+    content: "";
+    height: 17px;
+    width: 10px;
+    border-left: none;
+    border-top:none;
+    border-bottom: solid 8px #EcF0F1;
+    border-right: solid 2px #EcF0F1;
+    top: 7px;
+    left: 11px;
+
+}
+#topbar > #home::after{
+    display:block;
+    position: relative;
+    content: "";
+    width: 0px;
+    height: 0px;
+    border-style: solid;
+    border-width: 9px;
+    border-color:transparent;
+    border-bottom-color: #EcF0F1;
+    left: 7px;
+    top: -19px;
+
+}
+#topbar > #home:hover::after, #topbar > #home:hover::before{
+    border-bottom-color:#E67E22;
+}
+#topbar > #home:hover::before{
+    border-right-color:#E67E22;
+}
+#topbar > #home.selected::after, #topbar > #home.selected::before{
+    border-bottom-color:#E67E22;
+}
+#topbar > #home.selected::before{
+    border-right-color:#E67E22;
+}

@@ -1,0 +1,51 @@
+body {
+        font-family:            sans-serif;
+        padding-left:           30px;
+        padding-right:          20px;
+        padding-top:            20px;
+        padding-bottom:         10px;
+        overflow:               hidden;
+}
+div {
+        position:               absolute;
+        border:                 solid 1px #e5e5e5;
+        overflow:               hidden;
+        text-align:             center;
+        margin:                 0px;
+        padding:                0px;
+        background-color:       #ffffff;
+        z-index:                1;
+        font-size:              130%;
+        line-height:            140%;
+        display:                block;
+}
+div.item {
+        cursor:                 default;
+        position:               absolute;
+        border:                 solid 1px #e5e5e5;
+        overflow:               hidden;
+        margin:                 0px;
+        padding:                0px;
+        background-color:       #ffffff;
+        z-index:                1;
+        font-size:              130%;
+        line-height:            140%;
+        display:                block;
+}
+div.item:hover {
+        background-color:       #cfe8ff;
+        border-color:           #8080cc;
+        display:                block;
+}
+div.holder {
+        position:               relative;
+        border:                 none;
+        background:             none;
+        overflow:               visible;
+        z-index:                1;
+        font-size:              130%;
+        line-height:            140%;
+        text-align:             center;
+        display:                block;
+}
+

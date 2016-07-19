@@ -1,0 +1,51 @@
+.aboutme {
+    display: block;
+    /* font-size: 12pt; */
+    text-align: left;
+    /* float: left; */
+    border: none;
+    padding: 15px;
+    border-radius: 30px;
+    background-color: rgb(56, 54, 50);
+}
+
+.aboutme p {
+    text-indent: 20pt;
+    padding-bottom: 6pt;
+    font-size: 10pt;
+}
+
+.aboutme h3 {
+    font-size: 14pt;
+    text-align: center;
+}
+
+.aboutme .socialbutton {
+    display: inline-block;
+    position: relative;
+    border: none;
+    border-radius: 50%;
+    margin:4px;
+    font-size: 20pt;
+    color: rgb(56,54,50);
+    font-family: "Century Gothic", Helvetica, sans-serif;
+    background-color: rgb(76,74,70);
+    width: 1.5em;
+    height: 1.5em;
+    text-align:center;
+}
+
+.aboutme .socialbutton:hover {background-color:snow}
+.aboutme .socialbutton:active {background-color:initial}
+
+.aboutme .gplus::after {
+    content: "G+";
+    position:relative;
+    line-height: 1.5em;
+}
+
+.aboutme .linkedin::after {
+    content: "in";
+    font-weight:bold;
+    line-height: 1.5em;
+}

@@ -1,0 +1,126 @@
+#topbar > #downloadbar::before{
+    display:block;
+    position: relative;
+    content: "";
+    width: 22px;
+    height: 8px;
+    background: transparent;
+    border: 3px solid #EcF0F1;
+    border-top: none;
+    border-radius: 0px 0px 2px 2px;
+    left: 5px;
+    top: 17px;
+
+}
+#topbar > #downloadbar::after {
+    display:block;
+    position: relative;
+    content: "";
+    width: 0px;
+    border: solid 10px transparent;
+    border-top: solid 10px #EcF0F1;
+    left: 6px;
+    top: 0px;
+
+}
+#topbar > #downloadbar:hover::before{
+    border-color:#E67E22;
+    border-top:none;
+    }
+#topbar > #downloadbar:hover::after{
+    border-top-color:#E67E22;
+}
+#topbar > #downloadbar.selected::before{
+    border-color:#E67E22;
+    border-top:none;
+    }
+#topbar > #downloadbar.selected::after{
+    border-top-color:#E67E22;
+}
+.downloadbar {
+    margin: 0px;
+    padding: 40px 20px 20px 20px;
+    text-align: left;
+}
+
+.downloadbar hr { visibility: hidden }
+
+.invisible {visibility: hidden}
+
+form.uploadfile input {
+    line-height: 100%;
+    font: 12pt sans-serif;
+    border: none;
+    border-bottom: solid 3px #8899bb;
+    overflow: hidden;
+    color: black;
+    background-color: snow;
+    -webkit-transition: height 0.2s ease-out, opacity 0.2s ease-out;
+    -moz-transition: height 0.2s ease-out, opacity 0.2s ease-out;
+    -o-transition: height 0.2s ease-out, opacity 0.2s ease-out;
+    transition: height 0.2s ease-out, opacity 0.2s ease-out;
+}
+form.uploadfile input:focus {
+    outline:initial;
+}
+
+form.uploadfile input:hover {
+    border-bottom-color: gold;
+    -webkit-transition: height 0.2s ease-out, opacity 0.2s ease-out;
+    -moz-transition: height 0.2s ease-out, opacity 0.2s ease-out;
+    -o-transition: height 0.2s ease-out, opacity 0.2s ease-out;
+    transition: height 0.2s ease-out, opacity 0.2s ease-out;
+}
+
+form.uploadfile input[type="file"] {
+    display: none;
+}
+
+form.uploadfile label[for=""] {
+    background-color:gold;
+    -webkit-transition: background-color 0.2s linear;
+    -moz-transition: background-color 0.2s linear;
+    -o-transition: background-color 0.2s linear;
+    transition: background-color 0.2s linear;
+}
+
+form.uploadfile input[type="text"]{
+    flex-basis: 80%;
+    flex-grow: 1;
+    text-align: left;
+}
+
+form.uploadfile div.fstatus{
+    margin:0px;
+    padding:0px;
+    display:inline-block;
+    position:absolute;
+    border-radius: 0px;
+    box-shadow: none;
+    content:"";
+    border: none;
+    background-color: #8899bb;
+    width: 0px;
+    overflow: visible;
+    white-space:nowrap;
+}
+
+div.info#info {
+    border: none;
+    box-shadow: none;
+    border-radius: 0px;
+    font-size: 8pt;
+    padding:0px;
+    margin:0px;
+    margin-left:20px;
+    color: black;
+    flex-grow: 1;
+}
+
+span.goodfile {
+    color: inherit;
+}
+
+span.badfile {
+    color: red;
+}

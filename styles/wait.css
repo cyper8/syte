@@ -1,0 +1,51 @@
+@-webkit-keyframes waitingclock {
+from {-webkit-transform: rotate(0deg)}
+to {-webkit-transform: rotate(360deg)}
+}
+
+@-moz-keyframes waitingclock {
+from {-moz-transform: rotate(0deg)}
+to {-moz-transform: rotate(360deg)}
+}
+
+@-o-keyframes waitingclock {
+from {-o-transform: rotate(0deg)}
+to {-o-transform: rotate(360deg)}
+}
+
+@keyframes waitingclock {
+from {transform: rotate(0deg)}
+to {transform: rotate(360deg)}
+}
+
+div.waiting {
+    position: absolute;
+    display: block;
+    top:0px;
+    left: 0px;
+    width: 20px;
+    height: 20px;
+    margin: 0px;
+    padding: 0px;
+    border-radius: 15px;
+    visibility: hidden;
+    background-color: transparent;
+    border-width: 5px;
+    border-style: solid;
+    border-top-color: rgba(160,255,0,1);
+    border-left-color: rgba(160,255,0,0.75);
+    border-bottom-color: rgba(160,255,0,0.5);
+    border-right-color: rgba(160,255,0,0);
+    -webkit-transform-origin: center center;
+    -moz-transform-origin: center center;
+    -o-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-animation: waitingclock 1.5s linear infinite;
+    -moz-animation: waitingclock 1.5s linear infinite;
+    -o-animation: waitingclock 1.5s linear infinite;
+    animation: waitingclock 1.5s linear infinite;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    -o-box-shadow: none;
+    box-shadow: none;
+}

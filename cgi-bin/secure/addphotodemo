@@ -1,0 +1,66 @@
+#!/bin/bash
+
+photopath=/var/www/media/images/photogallery/resources/demo
+
+for i in egrep djpeg cjpeg exif jpegtran sed;
+	do
+		type ${i} >/dev/null || { echo -n "${i} not installed"; exit 1; }
+	done
+
+#[ -z "$(echo "$1" | egrep -i ".jp[e]*g")" ] && exit 1;
+djpeg -fast  "$1" >/dev/null || { echo -n "Jpeg not recognized"; exit 1; }
+#echo -n "$1 "
+case $(exif -m --tag=0x0112 "$1" 2>/dev/null | egrep -o "^[^ ]+") in
+        "right"|"Right")
+#		echo -n "rotate right "
+		{ jpegtran -copy all  -rotate 90 -outfile "${1%.*}_r.jpg" "$1" && exif --tag=0x0112 --remove -o "$1" "${1%.*}_r.jpg" && rm "${1%.*}_r.jpg"; } || { echo -n "Rotation failed"; exit 1; }
+		;;
+        "left"|"Left")
+#		echo -n "rotate left "
+		{ jpegtran -copy all  -rotate 270 -outfile "${1%.*}_r.jpg" "$1" && exif --tag=0x0112 --remove -o "$1" "${1%.*}_r.jpg" && rm "${1%.*}_r.jpg"; } || { echo -n "Rotation failed"; exit 1; }
+		;;
+        "bottom"|"Bottom")
+#		echo -n "rotate bottom "
+		{ jpegtran -copy all  -rotate 180 -outfile "${1%.*}_r.jpg" "$1" && exif --tag=0x0112 --remove -o "$1" "${1%.*}_r.jpg" && rm "${1%.*}_r.jpg"; } || { echo -n "Rotation failed"; exit 1; }
+		;;
+        "left"|""|*)
+#		echo -n "no rotate "
+		;;
+esac
+
+	for x in 0x9003 0x9004;
+	do
+		edate=$(exif --tag="$x" "$1" 2>/dev/null | grep "Value" | sed "s/^.*Value: //")
+		if [ -n "$edate" ]
+		then
+			break;
+		fi
+	done
+	if [ -z "$edate" ]
+	then
+		edate=$(exif --ifd=0 --tag=0x0132 "$1" 2>/dev/null | grep "Value" | sed -e "s/^.*Value: //")
+		x=0x0132
+		[ -z "$edate" ] && edate="0000:01:00 00:00:00"
+	fi
+	if [ -n "$edate" ]
+	then
+		filename="$(echo "$edate" | sed -e "s/[: ]//g").jpg"
+		jsonobj="{\"path\":\"${filename}\",\"year\":\"${filename:0:4}\",\"month\":\"${filename:4:2}\",\"day\":\"${filename:6:2}\",\"hour\":\"${filename:8:2}\",\"minutes\":\"${filename:10:2}\",\"seconds\":\"${filename:12:2}\"}";
+		if [ -f "${photopath}/${filename:0:4}/${filename}" ]; then
+			n=0;
+			while [ -f "${photopath}/${filename:0:4}/$(echo "$edate" | sed -e "s/[: ]//g")-$(printf "%04d" "$n").jpg" ]; do
+				n=$((n+1))
+			done;
+			filename="$(echo "$edate" | sed -e "s/[: ]//g")-$(printf "%04d" "$n").jpg"
+		fi
+		[ ! -d "${photopath}/${edate:0:4}" ] && { mkdir "${photopath}/${edate:0:4}" || { echo -n "Posible permission conflict: $0 @ line:56"; exit 1; }; }
+		[ ! -d "${photopath}/${edate:0:4}/index" ] && { mkdir "${photopath}/${edate:0:4}/index" || { echo -n "Posible permission conflict: $0 @ line:57"; exit 1; }; }
+		if mv "$1" "${photopath}/${edate:0:4}/${filename}"; then
+			[ ! -f "${photopath}/${edate:0:4}/${edate:0:4}.json" ] && echo -e -n "${jsonobj}" > "${photopath}/${edate:0:4}/${edate:0:4}.json" || echo -e -n ",\n${jsonobj}" >> "${photopath}/${edate:0:4}/${edate:0:4}.json";
+		else
+			echo -n "Unable to place file. Bad permission assignment? $0 @ line:61"
+			exit 1
+		fi
+		djpeg  -scale 1/4 "${photopath}/${edate:0:4}/${filename}" | cjpeg -quality 30  -outfile "${photopath}/${edate:0:4}/index/${filename}" || { echo -n "Failed preview creation for ${photopath}/${edate:0:4}/${filename}"; exit 1; }
+	fi
+echo -n "Success"

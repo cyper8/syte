@@ -1,0 +1,68 @@
+body {
+    text-align:center;
+    -webkit-perspective: 1200px;
+    -moz-perspective: 1200px;
+    perspective: 1200px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+}
+section.album{}
+section.cube{}
+.page {
+    display: inline-block;
+    position: relative;
+    border: solid 1px green;
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    padding: 0px;
+    margin: 5px;
+    z-index: 1;
+    -webkit-perspective: 1200px;
+    -moz-perspective: 1200px;
+    perspective: 1200px;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-transform-origin: center center;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+.closed{
+    margin: 5px -15px 5px -15px;
+    -webkit-transform: rotateY(60deg) rotateX(10deg);
+    -o-transform: rotateY(60deg) rotateX(10deg);
+    -moz-transform: rotateY(60deg) rotateX(10deg);
+    -ms-transform: rotateY(60deg) rotateX(10deg);
+    transform: rotateY(60deg) rotateX(10deg);
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+.closed:first-child{
+    margin-left:0px;
+}
+.page:hover{
+    z-index: 100;
+    -webkit-transform: scale(1.2);
+    transform: scale(1.2);
+    -moz-transform: scale(1.2);
+    -o-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    margin: 5px;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+.page:hover ~ .closed{
+    -webkit-transform: rotateY(-60deg) rotateX(10deg);
+    transform: rotateY(-60deg) rotateX(10deg);
+    -moz-transform: rotateY(-60deg) rotateX(10deg);
+    -o-transform: rotateY(-60deg) rotateX(10deg);
+    -ms-transform: rotateY(-60deg) rotateX(10deg);
+}

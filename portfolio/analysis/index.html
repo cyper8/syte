@@ -1,0 +1,261 @@
+<html>
+<meta http-equiv="Content-type" content="text/html; charset=utf-8">
+<head><link rel=stylesheet type="text/css" href="styles/analysis.css"></head>
+<script language=javascript>
+var content;
+var selectedItem;
+var type;
+var timeout;
+function Line(text,pos) {
+    var ln = document.createElement("span");
+    ln.className="line";
+    var textstring = text;
+    ln.words = new Array();
+    ln.position=pos || 0;
+    ln.id="l"+ln.position.toString();
+    ln.sourcetext = text;
+    var re = /[0-9a-zа-яієї'-]+/gi;
+    var matchcount = 0;
+    do {
+        var r = re.exec(textstring);
+        if (r != null) {
+            textstring = RegExp.leftContext + "<span id=w" + matchcount.toString() + " class='word'>" + r[0] + "</span>" + RegExp.rightContext;
+            re.lastIndex+=(31+matchcount.toString().length);
+            ln.words.push({
+                value: r[0],
+                index: matchcount,
+                offset: r.index+24+matchcount.toString().length,
+                selection:null,
+                nextWord: null,
+                previousWord: null,
+                parentLine: ln
+            })
+            matchcount++;
+        }
+    }
+    while (r != null)
+    if (type != "html") textstring += "<br>";
+    ln.innerHTML = textstring;
+    var ls = ln.getElementsByTagName("span");
+    for (var sp=0;sp<ls.length;sp++){
+        ln.words[sp].selection = ls[sp];
+    }
+    return ln;
+}
+
+function getalltext(element,textarray){
+    for (var i = 0; i<element.childNodes.length; i++){
+        if (element.childNodes[i].nodeName == "#text")
+            textarray.push(element.childNodes[i]);
+        else getalltext(element.childNodes[i],textarray);
+    }
+}
+
+function analizeText(t) {
+    var buffer = document.getElementById("textpane");
+    buffer.innerHTML = t;
+    var text = new Array();
+    getalltext(buffer,text);
+    var losttext = "";
+    var textstruct = new Array();
+    ResCount.style.backgroundColor = "lightsteelblue";
+    var rcwidth = ResCount.clientWidth;
+    var rctick = Math.floor(rcwidth/text.length);
+    ResCount.style.width = "0px";
+    textstruct.words = new Array();
+    for (var n=0; n<text.length; n++){
+        lines = text[n].data.split("\n");
+        text[n].data = "";
+        if (losttext != "") lines[0] = losttext + lines[0];
+        if (n<text.length-1){
+            if ((text[n].nextSibling != null) && (text[n].nextSibling.nodeName == "#text")){
+                losttext = lines.pop();
+            }
+            else losttext = "";
+        }
+        for (var x=0; x<lines.length;x++){
+            if (lines[x] == "") continue;
+            var pl = new Line(lines[x],textstruct.length);
+            text[n].parentNode.insertBefore(pl, text[n]);
+            textstruct.push(pl);                
+        }
+        text[n].parentNode.removeChild(text[n]);
+        ResCount.style.width = (ResCount.clientWidth + rctick).toString() + "px";
+    }
+    for (l in textstruct) {
+        if (textstruct[l].words){
+            for (w in textstruct[l].words){
+                textstruct.words.push(textstruct[l].words[w]);
+            }
+        }
+    }
+    textstruct.words[0].nextWord = textstruct.words[1];
+    for (var wn=1; wn<textstruct.words.length-1; wn++) {
+            textstruct.words[wn].nextWord = textstruct.words[wn+1];
+            textstruct.words[wn].previousWord = textstruct.words[wn-1];
+    }
+    textstruct.words[wn].previousWord = textstruct.words[wn-1];
+    ResCount.style.width = "auto";
+    ResCount.style.backgroundColor = "transparent";
+    return textstruct;
+}
+function makeRequest(reqtype,url,params) {
+	var httpRequest;
+    document.forms[0][1].value = "Loading... Please wait";
+    document.forms[0][1].readOnly=true;
+    if (url.search(/\.htm[l]?$/) != -1) type = "html";
+    else type = "txt";
+	httpRequest = new XMLHttpRequest();
+	httpRequest.onreadystatechange = function() { parseResponse(httpRequest); };
+	httpRequest.open(reqtype, url, true);
+	httpRequest.send(params);
+}
+
+function parseResponse(httpRequest) {
+	if (httpRequest.readyState == 4) {
+		if (httpRequest.status == 200) {
+                        content = new analizeText(httpRequest.responseText);
+                        document.forms[0][1].value = "";
+                        document.forms[0][1].readOnly=false;
+		}
+		else {
+			alert('Server said: '+httpRequest.status+'\nApparently no such a book in resources folder.');
+		}
+	}
+}
+function ResItem(ritem) {
+    var ri = document.createElement("div");
+    ri.className = "resitem marked";
+    ri.selected = true;
+    ri.targetWords = ritem;
+    ri.targetLines = new Array();
+    for (var i = 0; i<ritem.length; i++) {
+        if (ri.targetLines.indexOf(ritem[i].parentLine) == -1) {
+            ri.targetLines.push(ritem[i].parentLine);
+            ri.innerHTML += ritem[i].parentLine.outerHTML; // create styles for div.resitem p.line,p.selected
+        }
+    }
+    ri.select = function(){
+        if (!ri.selected) {
+            this.classList.add("marked");
+            for (var i = 0; i<ri.targetWords.length; i++) {
+                ri.targetWords[i].selection.classList.add("selected");
+            }
+            for (var i = 0; i<ri.targetLines.length; i++) {
+                ri.targetLines[i].classList.add("selectedline");
+            }
+            ri.selected = true;
+        }
+    }
+    ri.deselect = function(){
+        if (ri.selected) {
+            this.classList.remove("marked");
+            for (var i = 0; i<ri.targetWords.length; i++) {
+                ri.targetWords[i].selection.classList.remove("selected");
+            }
+            for (var i = 0; i<ri.targetLines.length; i++) {
+                ri.targetLines[i].classList.remove("selectedline");
+            }
+            ri.selected = false;
+        }
+    }
+    ri.onclick = function () {
+        if (!this.selected) {
+            if ((ResList.selected) && (ResList.selected != null)) {
+                ResList.selected.deselect();
+            }
+            this.select();
+            document.getElementById("textpane").scrollTop = this.targetLines[0].offsetTop-150;
+            ResList.selected = this;
+        }
+    }
+    ri.deselect();
+    return ri;
+}
+function resultsFill(results){                            // styles for resultcount and resultlist;
+    var rl = document.getElementById("resultlist");
+    rl.innerHTML = "";
+    var rc = document.getElementById("resultcount");
+    rc.innerHTML = "";
+    for (var ri=0;ri<results.length;ri++){
+        for (i in results[ri]){
+            results[ri][i].selection.classList.add("selected");
+            if (!results[ri][i].parentLine.classList.contains("selectedline")) results[ri][i].parentLine.classList.add("selectedline");
+        }
+        rl.appendChild(new ResItem(results[ri]));
+    }
+    rc.innerHTML = results.length.toString();
+}
+
+function stext(){
+    var sq = (document.forms[0][1].value).replace(/(\s$|^\s)/,"");
+    if ((sq.length > 2) || (sq.length == 1)) {
+        var quantity = 0;    // found instances
+        var qt = new Array();// array of queries
+        var qt = sq.split(/[^0-9a-zа-яієї'-]+/i);
+        var q = new Array(); //array of query regexps
+        var resw = new Array();
+        for (var i=0;i<qt.length;i++){
+                if (qt[i].length>1) q[i] = new RegExp("("+qt[i]+")","gi");
+		else if (qt[i].length == 1) q[i] = new RegExp("(^"+qt[i]+"$)","i");
+                else break;
+        }
+        if (q.length>0){
+            for (var i=0;i<content.words.length;i++) {
+                if (content.words[i].value.search(q[0]) != -1) {
+                    var res = new Array();
+                    res.push(content.words[i]);
+                    for (var j=1; j<q.length; j++) {
+                        if ((res[0].previousWord != null) && (res[0].previousWord.value.search(q[j]) != -1)) res.splice(0,0,res[0].previousWord);
+                        else if ((res[res.length-1].nextWord) && (res[res.length-1].nextWord.value.search(q[j]) != -1)) {
+                            res.push(res[res.length-1].nextWord);
+                            i++;
+                        }
+                        else {
+                            res = [];
+                            break;
+                        }
+                    }
+                    if (j == q.length) resw.push(res);
+                }
+            }
+            resultsFill(resw);
+        }
+    }
+    else {
+        document.getElementById("resultlist").innerHTML = "";
+        document.getElementById("resultcount").innerHTML = "";
+    }
+}
+function loadBook(){
+    document.forms[0][1].value = "";
+    document.getElementById("textpane").innerHTML = "";
+    document.getElementById("resultlist").innerHTML = "";
+    document.getElementById("resultcount").innerHTML = "";
+	makeRequest("GET","resources/"+volumeselect.options[volumeselect.selectedIndex].value,"");
+}
+</script>
+<body style="overflow: visible">
+<div class=holder id=leftpane>
+<form>
+<select name=volume id=volumeselect onchange="loadBook();">
+	<option name=pdd value=pdd.txt>PDD</option>
+	<option name=vol1 value=text.txt>0001</option> 
+
+</select><br>
+<input type="text" readonly="readonly" value="Loading... Please wait" onkeyup="setTimeout('stext(this.value)',1000);">	
+</form>
+<div id=resultcount class=holder></div>
+<div id=resultlist class=holder></div>
+</div>
+<div class=holder id=textpane>
+</div>
+</body>
+<script language=javascript>
+//makeRequest("GET","resources/text.txt","");
+var TextView = document.getElementById("textpane");
+var ResList = document.getElementById("resultlist");
+var ResCount = document.getElementById("resultcount");
+document.getElementById("volumeselect").onchange();
+</script>
+</html>

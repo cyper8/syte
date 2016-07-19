@@ -1,0 +1,48 @@
+<script type="text/javascript">
+if (typeof root === "undefined") var root = {};
+
+root.main = {
+        type: "main",
+        style: "",
+        content: "",
+        action: "none",
+        children: {
+            "transmission-button": {
+                type: "icon",
+                style: "/styles/buttons/transmission.css",
+                content: "<p>Transmission</p>",
+                action: "/transmission"
+            },
+            "download-button": {
+                type: "icon",
+                style: "/styles/buttons/download.css",
+                content: "<p>Download</p>",
+                action: "/download"
+            },
+            "downloads-button": {
+                type: "icon",
+                style: "/styles/buttons/downloadedfiles.css",
+                content: "<p>Downloaded <br>files</p>",
+                action: "/media/torrents"
+            },
+            "music-button": {
+                type: "icon",
+                style: "/styles/buttons/music.css",
+                content: "<p>Music</p>",
+                action: "/media/music"
+            },
+            "docs-button": {
+                type: "icon",
+                style: "/styles/buttons/docs.css",
+                content: "<p>Documents</p>",
+                action: "/docs"
+            },
+            "kino-button": {
+                type: "icon",
+                style: "/styles/buttons/kino.css",
+                content: "<p>Kinomania <br>rss</p>",
+                action: "/kino"
+            }
+        }
+    };
+</script>

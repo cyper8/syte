@@ -1,0 +1,61 @@
+@-webkit-keyframes wander {
+    0% {left: 0%}
+    50% {left: 75%}
+    100% {left: 0%}
+}
+
+@-moz-keyframes wander {
+    0% {left: 0%}
+    50% {left: 75%}
+    100% {left: 0%}
+}
+
+@-o-keyframes wander {
+    0% {left: 0%}
+    50% {left: 75%}
+    100% {left: 0%}
+}
+
+@keyframes wander {
+    0% {left: 0%}
+    50% {left: 75%}
+    100% {left: 0%}
+}
+
+.hidden{display:none}
+.invisible{visibility:hidden}
+.progress{
+    position:relative;
+    height:auto;
+    overflow:hidden;
+    border:none;
+    background:none;
+    padding: 3px;
+    margin: 0px;
+    text-align: left;
+}
+.progressbar{
+    display:inline-block;
+    position:relative;
+    height:1rem;
+    overflow:visible;
+    width:0px;
+    border:none;
+    background-color: #ccc;
+    padding:0px;
+    margin:0px;
+    text-align: center;
+    font-family: arial;
+    font-size: 12pt;
+    color: #363636;
+    white-space: nowrap;
+}
+.infiniteprogress{
+    content: "";
+    width: 25%;
+    color: transparent;
+    -webkit-animation: wander 5s linear infinite;
+    -moz-animation: wander 5s linear infinite;
+    -o-animation: wander 5s linear infinite;
+    animation: wander 5s linear infinite;
+}

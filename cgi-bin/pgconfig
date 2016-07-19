@@ -1,0 +1,6 @@
+#!/bin/bash
+
+appdir="${webhome}/photogallery"
+photodir="${webhome}/media/images/photogallery/resources/photo"
+tempdir="${webhome}/tmp"
+

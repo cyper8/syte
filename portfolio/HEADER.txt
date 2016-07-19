@@ -1,0 +1,11 @@
+<script type="text/javascript">
+if (typeof root === "undefined") var root = {};
+
+root.main = {
+        type: "main",
+        style: "/styles/aboutme.css",
+        content: "<div class='aboutme'><h3>Hello!</h3><p>My name is Anton Yashchuk. This page is intended to present some of my HTML/JavaScript/CSS.</p><p>Frontpage HTML is simple dir listing of a Lighttpd Web server. Some other samples have their own HTML pages. All other are written on Javascript. My code is organized into some sort of a OOP library/environment with module-based extensions and simple library of a GUI generation factory-type functions. No other frameworks used.</p><p>CSS(3) styling.</p><p>Server side is as simple as possible - most work is done by JS on the client side.</p><p>Tested on resent Chrome(ium) (any WebKit browser may work either) and Firefox.</p><p>Some functions are demo, so you won't be able to make any lasting changes on these pages.</p><div class='socialbutton gplus' onclick='location.href=\"https://plus.google.com/+АнтонЯщук\"'></div><div class='socialbutton linkedin' onclick='location.href=\"https://ua.linkedin.com/in/antonyashchuk\"'></div></div>",
+        action: "none",
+        children: {}
+    };
+</script>

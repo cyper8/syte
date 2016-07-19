@@ -1,0 +1,314 @@
+@-webkit-keyframes rotation {
+    from {-webkit-transform: rotate(0deg)}
+    to {-webkit-transform: rotate(360deg)}
+}
+
+@-moz-keyframes rotation {
+    from {-moz-transform: rotate(0deg)}
+    to {-moz-transform: rotate(360deg)}
+}
+
+@-o-keyframes rotation {
+    from {-o-transform: rotate(0deg)}
+    to {-o-transform: rotate(360deg)}
+}
+
+@keyframes rotation {
+    from {transform: rotate(0deg)}
+    to {transform: rotate(360deg)}
+}
+@-webkit-keyframes filelistappear {
+    from {height: 0px; opacity: 0}
+    to {height: auto; opacity: 1}
+}
+
+@-moz-keyframes filelistappear {
+    from {height: 0px; opacity: 0}
+    to {height: auto; opacity: 1}
+}
+
+@-o-keyframes filelistappear {
+    from {height: 0px; opacity: 0}
+    to {height: auto; opacity: 1}
+}
+
+@keyframes filelistappear {
+    from {height: 0px; opacity: 0}
+    to {height: auto; opacity: 1}
+}
+.selector#trinfo{
+    color: #767676;
+    top:35px;
+    padding: 40px 20px 60px;
+    overflow: hidden;
+    /*overflow-y: auto;*/
+    text-align: left;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+}
+
+.selector#trinfo:hover::before{
+    content: "Transmission Info";
+    display: block;
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    border: none;
+    background-color: #f8f8f8;
+    color: black;
+    font: sans-serif;
+    font-size: 8pt;
+    font-weight: bolder;
+    height: auto;
+    border-radius: 0px 0px 0px 5px;
+    padding: 0px 10px;
+    box-shadow: 0px 1px 4px 1px #363636;
+    -webkit-transition: all 0.2s ease-out;
+    -moz-transition: all 0.2s ease-out;
+    -o-transition: all 0.2s ease-out;
+    transition: all 0.2s ease-out;
+    z-index:100;
+}
+
+.triline{
+    position:relative;
+    height:auto;
+    margin: 0px;
+    padding: 5px;
+    background: #f8f8f8;
+    border-radius: 0px;
+    font-size: 12pt;
+    color: #767676;
+    text-align: left;
+    text-overflow: ellipsis;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+    cursor: default;
+}
+
+.triline div{
+    box-shadow: none;
+    border: none;
+    font-size: 10pt;
+}
+
+.triline .progressbar, .triline .progress{
+    padding: 0px;
+    margin: 0px;
+    border-radius: 7px;
+}
+.downloadedfile[disabled=false] .button#player {
+    opacity: 1;
+}
+.downloadedfile{
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: flex-start;
+    align-content: flex-start;
+    justify-content: flex-start;
+}
+.selector#linecontrol{
+    visibility:hidden;
+    position: absolute;
+    top: 0px;
+    right: -0.4rem;
+    width:auto;
+    height: 100%;
+    padding:0.2rem;
+    background: rgba(0, 0, 0, 0);
+    background: -webkit-linear-gradient(90deg,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.5));
+    background: -moz-linear-gradient(90deg,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.5));
+    background: -o-linear-gradient(90deg,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.5));
+    background: linear-gradient(90deg,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.5));
+    direction:rtl;
+    overflow:visible;
+    opacity:0;
+    z-index:2;
+}
+
+body.touchscreen .selector#linecontrol {
+    visibility:visible;
+    opacity:1;
+}
+
+#linecontrol > .button{
+	width: 2.3rem;
+	border-radius: 0px;
+	position: relative;
+}
+
+#linecontrol > .button:before{
+	line-height: 1.5rem;
+}
+
+.button#filelist:not(.selected) .selector#filelist{
+    display:none;
+}
+.button.selected#filelist .selector#filelist{
+    height:auto;
+    position: absolute;
+    min-height: 2.3em;
+    width: auto;
+    min-width: 400px;
+    padding: 0.5em;
+    top: 0px;
+    right: 100%;
+    z-index:50;
+}
+
+#addFiles {
+    width: 26px;
+    height: 24px;
+    padding: 0px 3px;
+    top: 4px;
+    margin-bottom: 6px;
+    background: orangered;
+    color: #f8f8f8;
+    font: 13pt sans-serif;
+    text-align: center;
+}
+#addFiles:hover{
+	background-color: rgb(255,97,0)
+}
+
+.sending#addFiles {
+    background: #cccccc;
+}
+
+.sending#addFiles::after {
+    content: attr(filecount);
+    position: absolute;
+    background: red;
+    border: none;
+    width: 1em;
+    height: 1em;
+    top: -2px;
+    right: -2px;
+    text-align: center;
+    font: 6pt sans-serif;
+    line-height: 100%;
+    border-radius: 50%;
+}
+
+.disabled {  /*for .tributton*/
+    opacity: 0.5;
+}
+
+.button#remove {/*for .tributton*/
+	width: 2.3em;
+	color: snow;
+	background-color:orangered;
+	text-align: center;
+	font: 12pt sans-serif;
+}
+
+#remove::before {
+    line-height:1.5rem;
+    font-size: 2.3rem;
+}
+
+body:not(.touchscreen) .triline:hover #linecontrol{
+    visibility:visible;
+    opacity:1;
+    right: 0px;
+    z-index:5;
+}
+.selector#trinfo input[type="file"]#addtorrents {
+    width: 0px;
+    height: 0px;
+    /* visibility: hidden; */
+    display:  none;
+}
+
+#topbar > #trinfo.module::before {
+    content: "";
+    position: absolute;
+    display:block;
+    top: 5px;
+    left: 5px;
+    padding: 0px;
+    margin: 0px;
+    width: 21px;
+    height: 21px;
+    background: transparent;
+    border: 3px dotted #EcF0F1;
+    border-radius: 50%;
+}
+
+#topbar > #trinfo.module::after {
+    content:"";
+    position: absolute;
+    display:block;
+    padding:0px;
+    margin:0px;
+    height: 17px;
+    width: 17px;
+    top: 7px;
+    left: 7px;
+    border: 6px solid #EcF0F1;
+    background:transparent;
+    border-radius:50%;
+}
+
+.transmitting::before{
+    -webkit-transform-origin: center center;
+    -moz-transform-origin: center center;
+    -o-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-animation: rotation linear 5s infinite;
+    -moz-animation: rotation linear 5s infinite;
+    -o-animation: rotation linear 5s infinite;
+    animation: rotation linear 5s infinite;
+}
+#topbar > #trinfo.module:hover::before, #topbar > #trinfo.module:hover::after{
+    border-color:#E67E22;
+}
+#topbar > #trinfo.module.selected::before, #topbar > #trinfo.module.selected::after{
+    border-color:#E67E22;
+}
+.button#player {
+	opacity:0;
+	background-color:  orange;
+}
+.buton#player::after{
+
+}
+.button#player::before{
+	
+}
+.toolbar#player {
+    visibility:visible;
+    opacity: 1;
+    text-align: center;
+    z-index:100;
+}
+.toolbar#player video#vplayer {
+    margin-top: 80px;
+    width: 80%;
+}
+.button#filelist{
+	padding:0.5rem;
+}
+.button#filelist::before{
+	content: "";
+	display: block;
+	border: solid 0.3rem snow;
+	border-left: none;
+	border-right: none;
+	width: 1.4rem;
+	height: 0.8rem;
+	}
+
+
+.button#filelist::after{
+	content: "";
+	display: block;
+	background-color:snow;
+	height: 0.25rem;
+	width: 1.4rem;
+	margin-top: 0.25rem;
+}

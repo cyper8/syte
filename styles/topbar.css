@@ -1,0 +1,150 @@
+@-webkit-keyframes topbarslide {
+    from {-webkit-transform: scale(1,0); opacity: 0}
+    to {-webkit-transform: scale(1,1); opacity: 1}
+}
+
+@-moz-keyframes topbarslide {
+    from {-moz-transform: scale(1,0); opacity: 0}
+    to {-moz-transform: scale(1,1); opacity: 1}
+}
+
+@-o-keyframes topbarslide {
+    from {-o-transform: scale(1,0); opacity: 0}
+    to {-o-transform: scale(1,1); opacity: 1}
+}
+
+@keyframes topbarslide {
+    from {transform: scale(1,0); opacity: 0}
+    to {transform: scale(1,1); opacity: 1}
+}
+@-webkit-keyframes toolbarslidein {
+    0% {visibility: hidden}
+    1% {visibility: visible; -webkit-transform: translateY(-10px); opacity: 0;}
+    100% {-webkit-transform: translateY(0px); opacity: 1;}
+}
+
+@-moz-keyframes toolbarslidein {
+    0% {visibility: hidden}
+    1% {visibility: visible; -moz-transform: translateY(-10px); opacity: 0;}
+    100% {-moz-transform: translateY(0px); opacity: 1;}
+}
+
+@-o-keyframes toolbarslidein {
+    0% {visibility: hidden}
+    1% {visibility: visible; -o-transform: translateY(-10px); opacity: 0;}
+    100% {-o-transform: translateY(0px); opacity: 1;}
+}
+
+@keyframes toolbarslidein {
+    0% {visibility: hidden}
+    1% {visibility: visible; transform: translateY(-10px); opacity: 0;}
+    100% {transform: translateY(0px); opacity: 1;}
+}
+@-webkit-keyframes toolbarslideout {
+    0% {-webkit-transform: translateY(0px); opacity: 1;}
+    99% {visibility: visible; -webkit-transform: translateY(-10px); opacity: 0;}
+    100% {visibility: hidden}
+}
+
+@-moz-keyframes toolbarslideout {
+    0% {-moz-transform: translateY(0px); opacity: 1;}
+    99% {visibility: visible; -moz-transform: translateY(-10px); opacity: 0;}
+    100% {visibility: hidden}
+}
+
+@-o-keyframes toolbarslideout {
+    0% {-o-transform: translateY(0px); opacity: 1;}
+    99% {visibility: visible; -o-transform: translateY(-10px); opacity: 0;}
+    100% {visibility: hidden}
+}
+
+@keyframes toolbarslideout {
+    0% {transform: translateY(0px); opacity: 1;}
+    99% {visibility: visible; transform: translateY(-10px); opacity: 0;}
+    100% {visibility: hidden}
+}
+
+.selector#topbar{
+    display:block;
+    position:fixed;
+    text-align: left;
+    top:0px;
+    left:0px;
+    right:0px;
+    height:35px;
+    margin:0px;
+    padding:0px;
+    overflow:visible;
+    border-radius: 0px;
+    border:none;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+    -webkit-transform-origin: center top;
+    -moz-transform-origin: center top;
+    -o-transform-origin: center top;
+    transform-origin: center top;
+    -webkit-animation: topbarslide 0.3s linear 1;
+    -moz-animation: topbarslide 0.3s linear 1;
+    -o-animation: topbarslide 0.3s linear 1;
+    animation: topbarslide 0.3s linear 1;
+}
+.selector#topbar > div:not(.selector){
+    display: inline-block;
+    position: relative;
+    height: 33px;
+    width: 33px;
+    margin: 0px 2px;
+    padding:0px;
+    border: solid 1px #A0A0A0;
+    background-color: transparent;
+    text-align: center;
+    border-radius: 50%;
+    box-shadow:none;
+    z-index: 100;
+    -webkit-animation: topbarslide 0.3s linear 1;
+    -moz-animation: topbarslide 0.3s linear 1;
+    -o-animation: topbarslide 0.3s linear 1;
+    animation: topbarslide 0.3s linear 1;
+}
+.selector#topbar > div:not(.selector):hover {
+    border: 1px solid #E67E22;
+    background-color: transparent;
+}
+.selector#topbar > div:not(.selector):active {
+    border: solid 1px #909090;
+}
+.selector#topbar > div.selected:not(.selector){
+    border: 1px solid #E67E22;
+}
+.toolbar {
+    position: fixed;
+    display: block;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    height:  100vh;
+    width:  100vw;
+    z-index: 50;
+    margin: 0px;
+    padding-bottom: 35px;
+    border: none;
+    background-color: rgba(0,0,0,0.6);
+    overflow: visible;
+}
+.selector > div.selected .toolbar {
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity 0.15s cubic-bezier(0.7,0,1,0.3), visibility 0.0s linear 0s;
+    -moz-transition: opacity 0.15s cubic-bezier(0.7,0,1,0.3), visibility 0.0s linear 0s;
+    -o-transition: opacity 0.15s cubic-bezier(0.7,0,1,0.3), visibility 0.0s linear 0s;
+    transition: opacity 0.15s cubic-bezier(0.7,0,1,0.3), visibility 0.0s linear 0s;
+}
+.selector > div:not(.selected) .toolbar {
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 0.15s cubic-bezier(0.7,0,1,0.3), visibility 0.0s linear 0.15s;
+    -moz-transition: opacity 0.15s cubic-bezier(0.7,0,1,0.3), visibility 0.0s linear 0.15s;
+    -o-transition: opacity 0.15s cubic-bezier(0.7,0,1,0.3), visibility 0.0s linear 0.15s;
+    transition: opacity 0.15s cubic-bezier(0.7,0,1,0.3), visibility 0.0s linear 0.15s;
+}
