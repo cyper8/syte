@@ -1,0 +1,5 @@
+./cgi-bin/kino.index
+./cgi-bin/.users
+./cgi-bin/.wall
+./cgi-bin/secure/.users
+./cgi-bin/secure/.wall
