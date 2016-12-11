@@ -3,3 +3,5 @@
 /cgi-bin/.wall
 /cgi-bin/secure/.users
 /cgi-bin/secure/.wall
+
+./node_modules
