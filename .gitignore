@@ -4,4 +4,4 @@
 /cgi-bin/secure/.users
 /cgi-bin/secure/.wall
 
-./node_modules
+/node_modules
