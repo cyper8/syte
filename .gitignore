@@ -4,4 +4,8 @@
 /cgi-bin/secure/.users
 /cgi-bin/secure/.wall
 
+<<<<<<< HEAD
 /node_modules
+=======
+./node_modules
+>>>>>>> 645bef0eecdc0ca6931321b8d696740cedce75f1
