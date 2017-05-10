@@ -1,0 +1,20 @@
+{
+  "name": "photogallery",
+  "version": "0.0.0",
+  "description": "syte-photogallery",
+  "main": "photogallery.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies":{
+    
+  },
+  "scripts": {
+    "test": "polymer test"
+  },
+  "keywords": [
+    "photogallery"
+  ],
+  "author": "Anton Yashchuk <anton.yashchuk@gmail.com>",
+  "license": "MIT"
+}

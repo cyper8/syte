@@ -1,0 +1,6 @@
+{
+  "name": "photogallery",
+  "short_name": "photogallery",
+  "start_url": "/",
+  "display": "standalone"
+}

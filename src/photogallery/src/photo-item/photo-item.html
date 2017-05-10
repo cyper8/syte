@@ -1,0 +1,69 @@
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<!--<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">-->
+<!--<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">-->
+
+<dom-module id="photo-item">
+  <template>
+    <style>
+
+      :host {
+        display:inline-block;
+        position:relative;
+        overflow:hidden;
+        border:none;
+        border-bottom:solid 3px transparent;
+        flex-grow: 0 !important;
+        flex-shrink: 0;
+        -webkit-transition: border-color 0.2s linear;
+        -moz-transition: border-color 0.2s linear;
+        -o-transition: border-color 0.2s linear;
+        transition: border-color 0.2s linear;
+      }
+      :host:hover{
+        border-bottom-color:#4DA6FF !important;
+      }
+      :host::after {
+        content:attr(itemname);
+        position:absolute;
+        font-size:8pt;
+        left:3px;
+        top:3px;
+        background-color:rgba(0,0,0,0.2);
+      }
+      :host[loaded=false] {
+        opacity:0;
+      }
+      :host[loaded=true] {
+        -webkit-animation:appearitem 0.3s ease-out 1;
+        -moz-animation:appearitem 0.3s ease-out 1;
+        -o-animation:appearitem 0.3s ease-out 1;
+        animation:appearitem 0.3s ease-out 1;
+      }
+      :host.selected{
+        border-bottom-color: #007FFF !important;
+      }
+      img.tile{
+        height:100%;
+        width:100%;
+      }
+
+    </style>
+    <img class="tile" src=[[src]]>
+  </template>
+
+  <script>
+    /** @polymerElement */
+    class PhotoItem extends Polymer.Element {
+
+      static get is() { return 'photo-item'; }
+
+      constructor(){
+        super();
+
+      }
+
+    }
+
+    window.customElements.define(PhotoItem.is, PhotoItem);
+  </script>
+</dom-module>
