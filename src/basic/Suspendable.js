@@ -1,30 +1,32 @@
 /* Suspendable.js */
-/* global windos */
+/* global window */
 
-window.SUSPENDED = false;
-window.Suspended = [];
 
-window.addEventListener("blur",function(){
-    SUSPENDED = true;
-});
-
-window.addEventListener("focus",function(){
-    SUSPENDED = false;
-    while (Suspended.length > 0) {
-        var sleeper = Suspended.pop();
-        sleeper[0].apply(sleeper[1],sleeper[2]);
+export default function Suspendable(obj){
+    if (!window.SUSPENDABLE) {
+        window.SUSPENDABLE = true;
+        window.SUSPENDED = false;
+        window.Suspended = [];
+        window.addEventListener("blur",function(){
+            window.SUSPENDED = true;
+        });
+        
+        window.addEventListener("focus",function(){
+            window.SUSPENDED = false;
+            while (window.Suspended.length > 0) {
+                var sleeper = window.Suspended.pop();
+                sleeper[0].apply(sleeper[1],sleeper[2]);
+            }
+        });
     }
-});
-
-module.exports = function Suspendable(obj){
     if (!obj.action){
         return obj;
     }
     else {
         obj.__action__ = obj.action;
         obj.action = function(){
-            if (SUSPENDED) {
-                Suspended.push([obj.__action__,this,arguments]);
+            if (window.SUSPENDED) {
+                window.Suspended.push([obj.__action__,this,arguments]);
             }
             else return obj.__action__.apply(this,arguments);
         }

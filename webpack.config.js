@@ -2,7 +2,7 @@ var webpack = require("webpack");
 
 var path = require('path');
 
-var publicPath         = 'http://localhost:8050/public/assets';
+var publicPath         = 'http://localhost:8081/public/assets';
 var cssName            = process.env.NODE_ENV === 'production' ? 'styles-[hash].css' : 'styles.css';
 var jsName             = process.env.NODE_ENV === 'production' ? 'bundle-[hash].js' : 'bundle.js';
 
@@ -20,7 +20,7 @@ module.exports = {
   debug: process.env.NODE_ENV !== 'production',
   resolve: {
     root: path.join(__dirname, 'src'),
-    modulesDerectories: ['node_modules'],
+    modulesDirectories: ['node_modules'],
     extensions: ['','.js']
   },
   plugins: plugins,
@@ -28,5 +28,10 @@ module.exports = {
     path: `${__dirname}/public/assets`,
     filename: jsName,
     publicPath: publicPath
+  },
+  module: {
+    loaders: [
+      { test: /\.js$/, exclude: [/node_modules/, /build/], loader: "babel" }
+    ]
   }
 }

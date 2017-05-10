@@ -1,6 +1,6 @@
 /* basicAjax.js */
 
-module.exports = function ajax(req){
+export default function ajax(req){
 /*
 **  arg: req = {
         method: "",
@@ -16,13 +16,11 @@ module.exports = function ajax(req){
 */
     if (typeof req != "object") {
         throw new Error("Argument must be of type: Object");
-        return false;
     }
     var xhr = new XMLHttpRequest();
     xhr.request = req;
     if (typeof xhr.request.resulthandler === "undefined") {
         throw new Error("ajax: no handler function!");
-        return false;
     }
     xhr.addEventListener("readystatechange",xhr.handler = function(e){
         if (this.readyState == 4){

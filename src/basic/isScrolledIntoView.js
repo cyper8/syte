@@ -1,6 +1,6 @@
 /* global window */
 
-module.exports = function isScrolledIntoView(el) {
+export function isScrolledIntoView(el) {
   var elemTop = el.getBoundingClientRect().top;
   var elemBottom = el.getBoundingClientRect().bottom;
 

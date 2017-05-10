@@ -1,5 +1,8 @@
-//TODO rewrite Scrollable interface
-/* global element() */
+/*scrollable.js*/
+
+/*global CustomEvent*/
+
+
 /*
 function Scrollable(element) {
     // need scrollbars
@@ -10,7 +13,7 @@ function Scrollable(element) {
     //
 }
 */
-module.exports = function Scrollable(elem,verticalscroll,horizontalscroll){
+export default function Scrollable(elem,verticalscroll,horizontalscroll){
   // function Scroll(direction){     // "vertical" or "horizontal"
   //   var scroll = element("div.scroll#scroll");
   //   scroll.setAttribute("direction",(direction == "horizontal")?direction:"vertical");
