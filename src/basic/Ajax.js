@@ -1,4 +1,4 @@
-/* basicAjax.js */
+/* basic/Ajax.js */
 
 export default function ajax(req){
 /*
@@ -22,21 +22,27 @@ export default function ajax(req){
     if (typeof xhr.request.resulthandler === "undefined") {
         throw new Error("ajax: no handler function!");
     }
-    xhr.addEventListener("readystatechange",xhr.handler = function(e){
+    xhr.handler = function(something){
+        if (typeof xhr.request.resulthandler === 'function'){
+            xhr.request.resulthandler(something);
+        }
+        else if (typeof xhr.request.resulthandler === 'object'){
+            xhr.request.resulthandler.innerHTML = something;
+        }
+    };
+    xhr.addEventListener("readystatechange",function(e){
         if (this.readyState == 4){
-            if (typeof this.request.resulthandler === 'function'){
-                this.request.resulthandler(this);
-            }
-            else if (typeof this.request.resulthandler === 'object'){
-                this.request.resulthandler.innerHTML = this.response;
-            }
+            if ((this.status > 199) && (this.status < 400))
+            this.handler(this.response);
         }
     });
-    xhr.timeout = 30000;
+    xhr.timeout = 10000;
     xhr.addEventListener("timeout",function(){
         if ((this.readyState > 0) && (this.readyState < 4)) this.abort();
-        if (this.request.initiator) this.request.initiator.skip();
-        else this.handler();
+        this.handler(new Error("Connection timeout"));
+    });
+    xhr.addEventListener("error",function(e){
+        xhr.handler(e);
     });
     if (xhr.request.progresshandler){
         if (typeof xhr.request.progresshandler === "function") {
