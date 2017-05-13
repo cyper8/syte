@@ -1,4 +1,5 @@
-export function Progressable(c){return class extends c {
+export default function Progressable(c){
+  return class extends c {
     constructor(){
         super()
         if (this.constructor.defaultprogress){
@@ -63,4 +64,5 @@ export function Progressable(c){return class extends c {
             }
         }
     }
-}}
+  }
+}

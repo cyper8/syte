@@ -2,7 +2,8 @@
 
 /* global location, document */
 
-import { element, Progressable } from 'UInterface';
+import element from 'UI/Elements';
+import Progressable from 'UI/Progressable';
 
 export class ModuleStack extends Progressable(Array) {
     constructor(){
@@ -10,13 +11,13 @@ export class ModuleStack extends Progressable(Array) {
         this.modules = [];
     }
 	add(params) {
-	    
+
     	/*
     	params = {
     	    root: //root of the module !element!,
     	    position: //index or element within root - optional,
     	    module: {
-    	        name: "<module-element-id>", 
+    	        name: "<module-element-id>",
     	        data: {
                     type: "<class-name>",
                     style: "<css-file>",

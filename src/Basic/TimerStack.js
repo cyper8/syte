@@ -1,6 +1,6 @@
 import Suspendable from 'Suspendable';
 
-class TimerStack extends Array {
+export default class TimerStack extends Array {
     constructor(args){
         if (arguments.length>0){
             if (args instanceof Array){
@@ -10,7 +10,7 @@ class TimerStack extends Array {
         }
         else super();
     }
-    
+
     add(func,argsa,timeout,iterations){
         for (var i=0;i<this.length;i++){
 				if ((this[i].action == func) && (this[i].args == argsa)) return null;
@@ -27,7 +27,7 @@ class TimerStack extends Array {
         }).bind(this),timeout);
         return this[t]
     }
-    
+
     action(t){
 		if (t>this.length-1) return null;
         if (this[t].times>0) {
@@ -39,10 +39,10 @@ class TimerStack extends Array {
         }
         else this[t].action(...this[t].args);
     }
-    
+
     remove(tim){
         clearInterval(tim.id);
         this.splice(this.indexOf(tim),1);
     }
-    
+
 }

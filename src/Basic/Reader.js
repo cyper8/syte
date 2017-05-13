@@ -1,5 +1,5 @@
 import Fifo from 'Fifo';
-import Progressable from 'UInterface';
+import Progressable from 'UI/Progressable';
 
 export default class Reader extends Progressable(Fifo) {
     constructor(){

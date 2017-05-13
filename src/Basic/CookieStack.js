@@ -1,9 +1,16 @@
 export default class CookieStack {
     constructor(){
-        var c = document.cookie.split("; ");
+        var ci,c = document.cookie.split("; ");
         for(ci in c){
-            var v = c[ci].split("=");
-            if (v.length > 1) this[v.shift()]=JSON.parse(decodeURIComponent(window.atob(v.join("="))));
+          var v = c[ci].split("=");
+          if (v.length > 1) {
+            try{
+              this[v.shift()]=JSON.parse(decodeURIComponent(window.atob(v.join("="))));
+            }
+            catch(e){
+              console.error(e)
+            }
+          }
         }
         if (!this.cookiesallowed) {
             if (confirm("This site uses cookies to save configuration data. It doesn't use nor seek nor send to a thirdparties any personal information.\nDo you approve local data storage as cookies?\n\n(If you object, all temporary data will be deleted after the session ends)")) {

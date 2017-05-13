@@ -1,5 +1,5 @@
 import Fifo from 'Fifo';
-import Progressable from 'UInterface';
+import Progressable from 'UI/Progressable';
 import ajax from 'Ajax';
 
 export default class Network extends Progressable(Fifo) {

@@ -1,6 +1,6 @@
 /*  global CustomEvent  */
 
-import {element, section} from 'Elements';
+import { element, section, Extendable } from 'Elements';
 
 export function selector(desc){
     var selector = section(".selector"+desc);
