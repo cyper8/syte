@@ -534,6 +534,13 @@ export function progress(desc) {
 export const Progressable = (c) => class extends c {
     constructor(){
         super()
+        if (this.constructor.defaultprogress){
+          addProgressMonitor(this.constructor.defaultprogress);
+        }
+    }
+    static addDefaultProgressMonitor(defaultprogress){
+      this.constructor.defaultprogress = defaultprogress;
+      addProgressMonitor(this.constructor.defaultprogress);
     }
     addProgressMonitor(progressdisplay){
         this.progress = progressdisplay;
