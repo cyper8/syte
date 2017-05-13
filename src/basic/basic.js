@@ -1,9 +1,9 @@
 /*basic.js*/
 
-import 'ClassExtension';
-import 'crossBrowserInnerText';
-import 'Broadcast';
-import { default as toA } from 'toArray';
+import './ClassExtension';
+import 'crossBrowserInnerText.js';
+import 'Broadcast.js';
+import { default as toA } from 'toArray.js';
 import ABtoB64 from 'ArrayBuffertoBase64';
 import ajax from 'Ajax';
 import Fifo from 'Fifo';

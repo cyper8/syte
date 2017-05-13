@@ -5,3 +5,5 @@
 /cgi-bin/secure/.wall
 
 /node_modules
+
+/build
