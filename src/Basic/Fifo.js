@@ -6,7 +6,7 @@ import "ClassExtension";
 //     };
 // }).extends(Array);
 
-export class Fifo extends Array {
+export default class Fifo extends Array {
     constructor(){
         super(...arguments);
     }

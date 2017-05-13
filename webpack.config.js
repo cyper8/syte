@@ -19,7 +19,7 @@ var plugins = [
 ];
 
 module.exports = {
-  entry: ['./src/basic/basic.js'],
+  entry: ['./src/index.js'],
   plugins: plugins,
   output: {
     path: `${__dirname}/build/`,

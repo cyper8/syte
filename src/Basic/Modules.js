@@ -2,9 +2,7 @@
 
 /* global location, document */
 
-import { element, Progressable } from 'UI';
-
-export default { ModuleStack, addStyle, addModule, ModTreeWalker };
+import { element, Progressable } from 'UInterface';
 
 export class ModuleStack extends Progressable(Array) {
     constructor(){
@@ -172,3 +170,5 @@ export function ModTreeWalker(modtree,docroot,modstack){
         });
     }
 }
+
+export default { ModuleStack, addStyle, addModule, ModTreeWalker };
