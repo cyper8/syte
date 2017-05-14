@@ -1,5 +1,5 @@
 var downdir="/media/torrents";
-function trinfo(root){ // CSS classes to be defined: trinfo - holder, triline - line, progress classes;
+export default function trinfo(root){ // CSS classes to be defined: trinfo - holder, triline - line, progress classes;
     if ((!document.networking) && (!progress)) {
         throw new Error("trInfo: no document.networking and progress classes defined");
         return false;
@@ -58,7 +58,7 @@ function trinfo(root){ // CSS classes to be defined: trinfo - holder, triline - 
             eFile.fQueue.Pop = function(){
                 b.setAttribute("filecount",this.length-1);
                 return this.pop();
-            };                
+            };
             eFile.onchange = function(){
                 this.parentNode.disable();
                 for (var fi = 0; fi<this.files.length; fi++){
@@ -116,7 +116,7 @@ function trinfo(root){ // CSS classes to be defined: trinfo - holder, triline - 
         }
         df.updateFilelist = function(fl){
             for (i in fl) {
-				var fli = this.items[this.index.indexOf(fl[i].name)];  
+				var fli = this.items[this.index.indexOf(fl[i].name)];
                 if (fl[i].bytesCompleted < fl[i].length) {
 					fli.disable();
 					if (fli.player) fli.removeChild(fli.player);
@@ -251,7 +251,7 @@ function trinfo(root){ // CSS classes to be defined: trinfo - holder, triline - 
             d.bSwitch.setAttribute("value","Start All");
         }
     };
-    
+
     d.upgradeInfo = function(xhr){
         if (xhr.status == 409) {
             d.request.headers["X-Transmission-Session-Id"]=xhr.getResponseHeader("X-Transmission-Session-Id");
@@ -325,7 +325,7 @@ function trinfo(root){ // CSS classes to be defined: trinfo - holder, triline - 
                         if (xhr.status == 200) {
                             //try {
                                 d.webm = window.JSON.parse("{"+xhr.response+"\"0\":\"\"}");
-                                    
+
 				//}
                             //catch (err) {
                             //    console.log(err);
@@ -388,7 +388,7 @@ function trinfo(root){ // CSS classes to be defined: trinfo - holder, triline - 
         r.params = JSON.stringify(p);
         document.networking.request(r);
     };
-    
+
     d.removetorrent = function(ts){
         var r = d.request;
         var p = d.allReqParams["32104"];
@@ -396,12 +396,12 @@ function trinfo(root){ // CSS classes to be defined: trinfo - holder, triline - 
         else p.arguments={};
         r.params = JSON.stringify(p);
         document.networking.request(r);
-		var files = d.trinfodata[ids.indexOf(ts.toString())].files; 
+		var files = d.trinfodata[ids.indexOf(ts.toString())].files;
 		for (i in files) {
 			document.networking.request({method:"GET",url:"/cgi-bin/trmv.cgi?"+files[i].name,resulthandler:function(){}});
 		}
     };
-    
+
     d.addtorrent = function(file){
         if (file == null) return false;
         var r = d.request;
@@ -425,7 +425,7 @@ function trinfo(root){ // CSS classes to be defined: trinfo - holder, triline - 
             d.style.top = (root.parentNode.clientHeight).toString()+"px";
             root.switch = function(state){
                 if (state) root.trinfobar.show();
-                else root.trinfobar.hide();            
+                else root.trinfobar.hide();
             };
         }
         else {
@@ -437,4 +437,3 @@ function trinfo(root){ // CSS classes to be defined: trinfo - holder, triline - 
     d.updateInfo();
     return d;
 }
-
