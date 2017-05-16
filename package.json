@@ -4,7 +4,9 @@
   "description": "Home server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "webpack",
+    "test": "karma start --single-run",
+    "test-watch": "karma start"
   },
   "repository": {
     "type": "git",

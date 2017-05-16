@@ -17,7 +17,7 @@ module.exports = function(config) {
 
 
     files: [
-      'src/index.js',
+      //'src/index.js',
       'test/**/*test.js',
     ],
 
@@ -27,23 +27,23 @@ module.exports = function(config) {
 
 
     preprocessors: {
-      'src/index.js': ["webpack"],
+      //'src/index.js': ["webpack"],
       'test/**/*test.js': ["webpack"]
     },
 
     webpack: webpackConf,
     
-    webpackMiddleware: {
-      stats: 'minimal',
-      watchOptions: { // watching with Webpack is better than with Karma
-        aggregateTimeout: 300
-      }
-    },
+    // webpackMiddleware: {
+    //   stats: 'minimal',
+    //   watchOptions: { // watching with Webpack is better than with Karma
+    //     aggregateTimeout: 300
+    //   }
+    // },
 
     reporters: ['progress'],
 
 
-    port: 9876,
+    port: 8082,
 
 
     colors: true,
@@ -52,7 +52,7 @@ module.exports = function(config) {
     logLevel: config.LOG_DEBUG,
 
 
-    autoWatch: false,
+    autoWatch: true,
 
 
     browsers: browsers,
