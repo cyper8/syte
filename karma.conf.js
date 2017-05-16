@@ -32,7 +32,7 @@ module.exports = function(config) {
     },
 
     webpack: webpackConf,
-    
+
     // webpackMiddleware: {
     //   stats: 'minimal',
     //   watchOptions: { // watching with Webpack is better than with Karma
@@ -60,6 +60,6 @@ module.exports = function(config) {
 
     singleRun: false,
 
-    concurrency: 1
+    concurrency: process.env.C9_SH_EXECUTED?1:Infinity
   })
 }

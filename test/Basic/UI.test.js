@@ -15,22 +15,29 @@ describe("Basic/UI provides", function(){
         });
     });
     describe("section factory",function(){
-        var e = UI.section(".testing#element");
-        e.calledOnExtension = function(){};
-        e.addEventListener("extend",e.calledOnExtension);
+        var e,e2,trigger=false;
         beforeAll(function(){
-            spyOn(e,'insertBefore');
-            spyOn(e,'calledOnExtension');
-            e.insert(UI.element("div.another#test"));
-        })
+          e = UI.section(".testing#element");
+          e2 = UI.element("div.another#test");
+          e.addEventListener("extend",function (event){
+            console.log(event.detail);
+            trigger = !trigger;
+          });
+          spyOn(e,'insertBefore').and.callThrough();
+          e.insert(e2);
+        });
         it("should be of correct type", function(){
             expect(e.tagName).toBe("DIV");
         });
-        it("should be extendabe", function(){
+        it("should implement Extendabe", function(){
             expect(e.extendable).toBeTruthy();
             expect(e.insert).toBeDefined();
+            expect(e.children[0]).toBe(e2);
             expect(e.insertBefore).toHaveBeenCalled();
-            expect(e.calledOnExtension).toHaveBeenCalled();
-        })
+            expect(trigger).toBeTruthy();
+        },1000);
+    });
+    describe("selector factory",function(){
+      var e = UI.selector(".test#element");
     })
 });
