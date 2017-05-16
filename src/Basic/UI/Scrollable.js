@@ -1,10 +1,11 @@
 /*  global CustomEvent  */
+import scroll from 'scroll';
 
-export default function Scrollable(elem,verticalscroll,horizontalscroll){
-    var vq,hq,vmax,hmax,vold,hold,vstart,hstart;elem.scrollbars=[];
+export default function Scrollable(elem){
+    var vq,hq,vmax,hmax,vold,hold,vstart,hstart;
     if ((typeof elem.onwheel === "object") && (typeof elem.onmousemove === "object") /*&& (getComputedStyle(elem).getPropertyValue("overflow") == "hidden")*/) {
-        elem.vscroll = verticalscroll;
-        elem.hscroll = horizontalscroll;
+        elem.hscroll = elem.insertBefore(scroll("horizontal"),elem.children[0]);
+        elem.vscroll = elem.insertBefore(scroll("vertical"),elem.children[0]);
         elem.initialized = false;
         elem.autoscroll = false;
         elem.scrolltimer = null;

@@ -87,6 +87,15 @@ export class ModuleStack extends Progressable(Array) {
             return newnode;
         }
 	}
+	addtree(tree,root){
+	    /*
+	    tree = {
+            <module-name>:<module-data>,
+            ...
+	    }
+	    */
+	    ModTreeWalker(tree,root,this);
+	}
 	run(name){
 	    for(var i=0;i<this.length;i++){
 	        if (this[i].mod == name){

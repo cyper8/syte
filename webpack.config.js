@@ -10,7 +10,8 @@ var plugins = [
   new webpack.DefinePlugin({
     'process.env': {
       BROWSER:  JSON.stringify(true),
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development')
+      NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+      C9_SH_EXECUTED: JSON.stringify(process.env.C9_SH_EXECUTED || 0)
     }
   }),
   new webpack.LoaderOptionsPlugin({
@@ -20,6 +21,7 @@ var plugins = [
 
 module.exports = {
   entry: ['./src/index.js'],
+  devtool: 'inline-source-map',
   plugins: plugins,
   output: {
     path: `${__dirname}/build/`,

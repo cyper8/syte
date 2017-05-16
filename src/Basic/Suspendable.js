@@ -12,10 +12,12 @@ var Suspendable = (c) => class extends c {
             window.Suspended = [];
             window.addEventListener("blur",function(){
                 window.SUSPENDED = true;
+                console.log("window suspended");
             });
             
             window.addEventListener("focus",function(){
                 window.SUSPENDED = false;
+                console.log("window awakened; todo: "+window.Suspended);
                 while (window.Suspended.length > 0) {
                     var sleeper = window.Suspended.pop();
                     sleeper[0].apply(sleeper[1],sleeper[2]);

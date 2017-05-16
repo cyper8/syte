@@ -33,8 +33,15 @@ export default class Network extends Progressable(Fifo) {
         for (n in req){
             r[n] = req[n];
         }
-        this.push(r);
-        this.action();
+        if (this.filter(function(e,i,a){
+            return ((e.method == r.method) &&
+                    (e.url == r.url) &&
+                    (e.params == e.params) &&
+                    (e.resulthandler == r.resulthandler));
+        }).length > 0) {
+            this.push(r);
+            this.action();
+        }
     }
     download(url){
         return new Promise(function(success){

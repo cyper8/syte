@@ -1,4 +1,10 @@
 import { default as App } from 'Basic';
-import { default as trInfo } from 'trinfo';
 
-const transmissionrpc = "/transmission/rpc";
+App.Modules.addtree({
+    "trinfo":{
+        type: "module",
+        style: "styles/trinfo.css",
+        content: "",
+        action: "trinfo.js"
+    }
+},document.body);
