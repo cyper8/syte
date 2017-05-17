@@ -17,7 +17,7 @@ export function selector(desc){
             return this._selected = v;
         }
         else{
-            if (!this._selected.push) this._selected = new Array();
+            if (!this._selected.push) this._selected = [this._selected];
             if (this._selected.indexOf(v) == -1) {
                 this._selected.push(v);
             }
@@ -41,7 +41,7 @@ export function selector(desc){
     selector.addEventListener("click",function(event){
             var source;
             for (var i=0; i<this.items.length; i++){
-                if ((this.items[i] == event.srcElement) || (this.items[i].contains(event.srcElement))){
+                if ((this.items[i] == event.target) || (this.items[i].contains(event.target))){
                     source = this.items[i];
                     break;
                 }

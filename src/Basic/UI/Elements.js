@@ -41,6 +41,6 @@ export function Extendable(elem){
 };
 
 export function section(desc){
-  var section = this.element("div"+desc);
+  var section = element("div"+desc);
   return Extendable(section);
 };
