@@ -114,7 +114,7 @@ export class ModuleStack extends Progressable(Array) {
 }
 
 function checkRes(restype,url){
-    var s = document.getElementsByTagName(restype);
+    var n,s = document.getElementsByTagName(restype);
     for (n in s) {
         if (((s[n].src || s[n].href) || "").search(url) != -1) return true;
     }
@@ -147,7 +147,7 @@ function addStyleSheet(url,callback){
 export function addStyle(style,callback){
     if (typeof style === "string"){
         if (style.search(/\{\.*\}/) != -1) {
-            return Promise(function(success){
+            return new Promise(function(success){
                 var css = document.createElement("style");
                 css.type = "text/css";
                 document.head.appendChild(css);
@@ -161,6 +161,7 @@ export function addStyle(style,callback){
 }
 
 export function ModTreeWalker(modtree,docroot,modstack){
+    var m;
     for (m in modtree){
         if (modtree[m].children) {
             ModTreeWalker(modtree[m].children,modstack.add({

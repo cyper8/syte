@@ -175,18 +175,7 @@ a:visited {
 .button[disabled=true] {
     background-color:#b3d9ff;
 }
-.bar{
-    position: fixed !important;
-    left: 0px;
-    right: 0px;
-    height: 35px;
-    margin: 0px;
-    padding: 0px;
-    overflow: visible;
-    border: none;
-    background: rgba(0,0,0,0.6);
-    z-index: 100;
-}
+
 .scroll {
     position:absolute;
     background-color: rgb(77,166,255);
@@ -254,119 +243,6 @@ body > div {
     animation: appear 0.3s ease-out 1;
     flex: 1 0 10%;
 }
-div.main {
-    flex-grow: 1;
-    position: relative;
-    flex-shrink: 0;
-    flex-basis: 100vh;
-    order:1;
-    overflow:hidden;
-    background-color: black;
-    padding: 35px 0px 0px;
-}
-div.list {
-    flex-grow: 1;
-    flex-shrink: 0;
-    flex-basis: 80vh;
-    height: 70vh;
-    order:2;
-    background-color: rgba(0,0,0,0.4);
-    position: relative;
-    text-align: left;
-    padding: 0px;
-    margin: 0px;
-    overflow-y: auto;
-}
-
-div.list table {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-div.list tbody tr:hover {
-    background-color: snow;
-    color: sandybrown;
-}
-
-div.list tbody tr:hover a {color: sandybrown}
-
-div.list thead tr {
-    border: none;
-}
-
-div.list td a[href$="/"]::before{
-    content: "";
-    display: inline-block;
-    position: relative;
-    width: 1em;
-    height: 0.7em;
-    top: 0px;
-    border-radius: 0px 1px 1px 1px;
-    margin-right: 3px;
-    background-color: sandybrown;
-    text-align: center;
-    line-height: 90%;
-}
-div.list td a[href$="/"]::after{
-    content: "";
-    display: inline-block;
-    position: absolute;
-    left: 0px;
-    top: 0px;
-    width: 8px;
-    height: 3px;
-    margin-top: 2px;
-    border-radius: 2px 2px 0px 0px;
-    background-color: sandybrown;
-    text-align: center;
-    line-height: 95%;
-}
-div.list th {
-    font: 100% sans-serif;
-    border:none;
-    border-left: solid 1px white;
-    padding: 1px 3px;
-}
-
-div.list td {
-    font: 100% sans-serif;
-    border:none;
-    border-left: solid 1px white;
-    border-top: solid 1px white;
-    padding: 1px 3px;
-}
-
-div.list a {
-    position: relative;
-}
-
-div.list th:first-child {
-    border: none;
-}
-
-div.list td:first-child {
-    border-left: none;
-}
-
-div.list th {
-    font-weight: bold; 
-}
-
-div.foot {
-    flex-grow: 1;
-    flex-shrink: 0;
-    /* flex-basis: 100px; */
-    order:2;
-    font-family: sans-serif;
-    padding-top: 35px;
-    margin: 0px;
-    background-color: black;
-}
-
-a.shortcut {
-    margin-left:3px;
-    margin-right:3px;
-}
 
 p {
     font-family: sans-serif;
@@ -376,64 +252,7 @@ p {
     margin-right:5px;
 }
 
-div.icon {
-    display:inline-block;
-    position:relative;
-    padding: 0px;
-    margin: 5px;
-    color:#808080;
-    background-position: center center;
-    background-size: contain;
-    background-origin: border-box;
-    text-align: left;
-    vertical-align: bottom;
-    border-radius: 50%;
-    -webkit-transition: -webkit-transform 0.2s ease-out, box-shadow 0.2s ease-out;
-    -moz-transition: -moz-transform 0.2s ease-out, box-shadow 0.2s ease-out;
-    -o-transition: -o-transform 0.2s ease-out, box-shadow 0.2s ease-out;
-    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
-}
 
-div.icon:hover {
-    cursor: pointer;
-    color:sandybrown;
-    -webkit-transform-origin: center center;
-    -moz-transform-origin: center center;
-    -o-transform-origin: center center;
-    transform-origin: center center;
-    -webkit-transform: scale(1.1,1.1);
-    -moz-transform: scale(1.1,1.1);
-    -o-transform: scale(1.1,1.1);
-    transform: scale(1.1,1.1);
-    box-shadow: 0px 6px 10px 2px #363636;
-    -webkit-transition: -webkit-transform 0.1s ease-out, box-shadow 0.1s ease-out;
-    -moz-transition: -moz-transform 0.1s ease-out, box-shadow 0.1s ease-out;
-    -o-transition: -o-transform 0.1s ease-out, box-shadow 0.1s ease-out;
-    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
-    z-index: 100;
-}
-
-div.icon p {
-    font-family: sans-serif;
-    margin-left: 0px;
-    margin-right:5px;
-}
-form {
-    position:relative;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-content: center;
-    align-items: center;
-    background-color: snow;
-    padding: 10px;
-}
-form > *{
-    flex-grow: 0;
-    flex-shrink: 0;
-    flex-basis:initial;
-}
 .progress{
     position:relative;
     height:auto;
@@ -479,27 +298,6 @@ form > *{
         font-size: 12pt;
         overflow: hidden;
     }
-    
-    div.main {
-        width: 50vw;
-        height:  100%;
-    
-        padding: 5% 1% 1%;
-}
-    
-    div.icon {
-        width: 220px;
-        height: 220px;
-    }
-    
-    div.list {
-        width: 50vw;
-        padding-top: 35px;
-    }
-    
-    div.foot {
-        width: 50vw;
-    }
 }
 
 @media screen and (max-width: 1080px), screen and (max-device-width: 1080px) {
@@ -514,72 +312,5 @@ form > *{
     body > div:first-of-type {
         margin-top: 35px;
     }
-    div.main {
-        width: 100vw;
-    }
-    div.main > div {
-        height: 90vh;
-    }
-    
-    div.icon {
-        width: 100px;
-        height: 100px !important;
-    }
-    
-    div.list {
-        width: 100vw;
-        flex-basis: 70vh;
-        padding: 0px;
-    
-        /* order: 3; */
-    }
-    
-    div.list thead {display: none}
-    
-    div.list tbody tr {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        
-    }
-    
-    div.list tbody tr td {
-        flex-grow: 1;
-        font-size: 70%;
-        overflow: hidden;
-    }
-    
-    div.list tbody tr td.n {
-        flex-basis: 100%;
-        font-size: 100%;
-        order: 0;
-    }
-    
-    div.list tbody tr td.m {
-        flex-grow: 4;
-    }
-    div.list tbody tr td:not([class="n"]) {
-        order: 2;
-        line-height: 0px;
-        opacity: 0;
-        -webkit-transition: line-height 0.1s ease-out, opacity 0.1s ease-out; 
-        -moz-transition: line-height 0.1s ease-out, opacity 0.1s ease-out; 
-        -o-transition: line-height 0.1s ease-out, opacity 0.1s ease-out; 
-        transition: line-height 0.1s ease-out, opacity 0.1s ease-out; 
-    }
-    div.list tbody tr:hover td:not([class="n"]) {
-        line-height: 100%;
-        opacity: 1;
-        -webkit-transition: line-height 0.3s ease-out 1s, opacity 0.3s ease-out 1s;
-        -moz-transition: line-height 0.3s ease-out 1s, opacity 0.3s ease-out 1s;
-        -o-transition: line-height 0.3s ease-out 1s, opacity 0.3s ease-out 1s;
-        transition: line-height 0.3s ease-out 1s, opacity 0.3s ease-out 1s;
-    }
-    div.list tbody tr td.t {order: 1}
-    
-    div.foot {
-        width: 100vw;
-    }
-    a.shortcut{
-        font-size: 100%;}
+
 }

@@ -30,7 +30,9 @@ var Suspendable = (c) => class extends c {
     action(){
         if (super.action){
             if (window.SUSPENDED) {
-                window.Suspended.push([super.action,this,arguments]);
+                if (window.Suspended.indexOf([super.action,this,arguments])==-1){
+                    window.Suspended.push([super.action,this,arguments]);
+                }
             }
             else return super.action.apply(this,arguments);
         }

@@ -70,6 +70,7 @@ export default function ajax(req){
     (xhr.executesession = function(){
         xhr.open(xhr.request.method,encodeURI(xhr.request.url),true);
         if (xhr.request.headers) {
+            var h;
             for (h in xhr.request.headers) {
                 xhr.setRequestHeader(h,xhr.request.headers[h]);
             }

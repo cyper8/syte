@@ -1,0 +1,21 @@
+div.foot {
+    flex-grow: 1;
+    flex-shrink: 0;
+    /* flex-basis: 100px; */
+    order:2;
+    font-family: sans-serif;
+    padding-top: 35px;
+    margin: 0px;
+    background-color: black;
+}
+@media screen and (min-width: 1081px), screen and (min-device-width: 1081px) {
+    div.foot {
+        width: 50vw;
+    }
+}
+
+@media screen and (max-width: 1080px), screen and (max-device-width: 1080px) {
+    div.foot {
+        width: 100vw;
+    }
+}

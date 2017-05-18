@@ -20,7 +20,7 @@ var plugins = [
 ];
 
 module.exports = {
-  entry: ['./src/index.js'],
+  entry: ['./src/Basic/index.js'],
   devtool: 'inline-source-map',
   plugins: plugins,
   output: {

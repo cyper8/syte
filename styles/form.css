@@ -1,0 +1,17 @@
+
+form {
+    position:relative;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-content: center;
+    align-items: center;
+    background-color: snow;
+    padding: 10px;
+}
+form > *{
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis:initial;
+}

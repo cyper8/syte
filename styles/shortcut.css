@@ -1,0 +1,8 @@
+a.shortcut {
+    margin-left:3px;
+    margin-right:3px;
+}
+@media screen and (max-width: 1080px), screen and (max-device-width: 1080px) {
+    a.shortcut{
+        font-size: 100%;}
+}

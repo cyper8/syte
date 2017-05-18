@@ -1,0 +1,56 @@
+div.icon {
+    display:inline-block;
+    position:relative;
+    padding: 0px;
+    margin: 5px;
+    color:#808080;
+    background-position: center center;
+    background-size: contain;
+    background-origin: border-box;
+    text-align: left;
+    vertical-align: bottom;
+    border-radius: 50%;
+    -webkit-transition: -webkit-transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    -moz-transition: -moz-transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    -o-transition: -o-transform 0.2s ease-out, box-shadow 0.2s ease-out;
+    transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+}
+
+div.icon:hover {
+    cursor: pointer;
+    color:sandybrown;
+    -webkit-transform-origin: center center;
+    -moz-transform-origin: center center;
+    -o-transform-origin: center center;
+    transform-origin: center center;
+    -webkit-transform: scale(1.1,1.1);
+    -moz-transform: scale(1.1,1.1);
+    -o-transform: scale(1.1,1.1);
+    transform: scale(1.1,1.1);
+    box-shadow: 0px 6px 10px 2px #363636;
+    -webkit-transition: -webkit-transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    -moz-transition: -moz-transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    -o-transition: -o-transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    transition: transform 0.1s ease-out, box-shadow 0.1s ease-out;
+    z-index: 100;
+}
+
+div.icon p {
+    font-family: sans-serif;
+    margin-left: 0px;
+    margin-right:5px;
+}
+
+@media screen and (min-width: 1081px), screen and (min-device-width: 1081px) {
+    div.icon {
+        width: 220px;
+        height: 220px;
+    }
+}
+
+@media screen and (max-width: 1080px), screen and (max-device-width: 1080px) {
+    div.icon {
+        width: 100px;
+        height: 100px !important;
+    }
+}

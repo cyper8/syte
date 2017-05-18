@@ -1,0 +1,147 @@
+div.list {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 80vh;
+    height: 70vh;
+    order:2;
+    background-color: rgba(0,0,0,0.4);
+    position: relative;
+    text-align: left;
+    padding: 0px;
+    margin: 0px;
+    overflow-y: auto;
+}
+
+div.list table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+div.list tbody tr:hover {
+    background-color: snow;
+    color: sandybrown;
+}
+
+div.list tbody tr:hover a {color: sandybrown}
+
+div.list thead tr {
+    border: none;
+}
+
+div.list td a[href$="/"]::before{
+    content: "";
+    display: inline-block;
+    position: relative;
+    width: 1em;
+    height: 0.7em;
+    top: 0px;
+    border-radius: 0px 1px 1px 1px;
+    margin-right: 3px;
+    background-color: sandybrown;
+    text-align: center;
+    line-height: 90%;
+}
+div.list td a[href$="/"]::after{
+    content: "";
+    display: inline-block;
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 8px;
+    height: 3px;
+    margin-top: 2px;
+    border-radius: 2px 2px 0px 0px;
+    background-color: sandybrown;
+    text-align: center;
+    line-height: 95%;
+}
+div.list th {
+    font: 100% sans-serif;
+    border:none;
+    border-left: solid 1px white;
+    padding: 1px 3px;
+}
+
+div.list td {
+    font: 100% sans-serif;
+    border:none;
+    border-left: solid 1px white;
+    border-top: solid 1px white;
+    padding: 1px 3px;
+}
+
+div.list a {
+    position: relative;
+}
+
+div.list th:first-child {
+    border: none;
+}
+
+div.list td:first-child {
+    border-left: none;
+}
+
+div.list th {
+    font-weight: bold; 
+}
+
+@media screen and (min-width: 1081px), screen and (min-device-width: 1081px) {
+    div.list {
+        width: 50vw;
+        padding-top: 35px;
+    }
+}
+
+@media screen and (max-width: 1080px), screen and (max-device-width: 1080px) {
+    div.list {
+        width: 100vw;
+        flex-basis: 70vh;
+        padding: 0px;
+    
+        /* order: 3; */
+    }
+    
+    div.list thead {display: none}
+    
+    div.list tbody tr {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        
+    }
+    
+    div.list tbody tr td {
+        flex-grow: 1;
+        font-size: 70%;
+        overflow: hidden;
+    }
+    
+    div.list tbody tr td.n {
+        flex-basis: 100%;
+        font-size: 100%;
+        order: 0;
+    }
+    
+    div.list tbody tr td.m {
+        flex-grow: 4;
+    }
+    div.list tbody tr td:not([class="n"]) {
+        order: 2;
+        line-height: 0px;
+        opacity: 0;
+        -webkit-transition: line-height 0.1s ease-out, opacity 0.1s ease-out; 
+        -moz-transition: line-height 0.1s ease-out, opacity 0.1s ease-out; 
+        -o-transition: line-height 0.1s ease-out, opacity 0.1s ease-out; 
+        transition: line-height 0.1s ease-out, opacity 0.1s ease-out; 
+    }
+    div.list tbody tr:hover td:not([class="n"]) {
+        line-height: 100%;
+        opacity: 1;
+        -webkit-transition: line-height 0.3s ease-out 1s, opacity 0.3s ease-out 1s;
+        -moz-transition: line-height 0.3s ease-out 1s, opacity 0.3s ease-out 1s;
+        -o-transition: line-height 0.3s ease-out 1s, opacity 0.3s ease-out 1s;
+        transition: line-height 0.3s ease-out 1s, opacity 0.3s ease-out 1s;
+    }
+    div.list tbody tr td.t {order: 1}
+}

@@ -1,0 +1,12 @@
+.bar{
+    position: fixed !important;
+    left: 0px;
+    right: 0px;
+    height: 35px;
+    margin: 0px;
+    padding: 0px;
+    overflow: visible;
+    border: none;
+    background: rgba(0,0,0,0.6);
+    z-index: 100;
+}
