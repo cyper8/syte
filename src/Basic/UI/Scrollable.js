@@ -1,5 +1,5 @@
 /*  global CustomEvent  */
-import scroll from 'scroll';
+import scroll from 'Scroll';
 
 export default function Scrollable(elem){
     var vq,hq,vmax,hmax,vold,hold,vstart,hstart;

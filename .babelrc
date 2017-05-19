@@ -2,8 +2,13 @@
   "presets": [
     ["env", {
       "targets": {
-        "browsers": ["> 5%"]
+        "browsers": ["> 1%"]
       }
     }]
-  ]
+  ],
+  "env": {
+    "production": {
+      "presets": ["babili"]
+    }
+  }
 }

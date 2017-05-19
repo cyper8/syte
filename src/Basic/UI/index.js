@@ -1,13 +1,14 @@
 import addWheelListener from 'addWheelListener';
 import isScrolledIntoView from 'isScrolledIntoView';
-import { element, Extendable, section } from 'Elements';
+import { element } from 'Element';
+import { Extendable, section } from 'Section';
 import { selector, label, DualState, Pushable, Switchable, PushButton, ToggleButton } from 'Controls';
-import progress from 'progress';
+import progress from 'Progress';
 import Progressable from 'Progressable';
-import scroll from 'scroll';
+import scroll from 'Scroll';
 import Scrollable from 'Scrollable';
 
-const UI = {
+export const UI = {
   addWheelListener,
   isScrolledIntoView,
   element,
@@ -25,5 +26,3 @@ const UI = {
   Extendable,
   Scrollable
 }
-
-export default UI;

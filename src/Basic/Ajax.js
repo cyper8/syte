@@ -1,6 +1,6 @@
 /* basic/Ajax.js */
 
-export default function ajax(req){
+export function ajax(req){
 /*
 **  arg: req = {
         method: "",

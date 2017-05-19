@@ -1,48 +1,36 @@
-import Suspendable from 'Suspendable';
-
-export default class TimerStack extends Array {
-    constructor(args){
-        if (arguments.length>0){
-            if (args instanceof Array){
-                super().concat(args);
-            }
-            else super(args);
-        }
-        else super();
+export default class TimerStack {
+    constructor(){
+        this.buffer = [];
     }
 
     add(func,argsa,timeout,iterations){
-        for (var i=0;i<this.length;i++){
-				if ((this[i].action == func) && (this[i].args == argsa)) return null;
+        for (var i=0;i<this.buffer.length;i++){
+				if ((this.buffer[i].action == func) && (this.buffer[i].args == argsa)) return null;
         }
-        var t = this.push({
+        var t = this.buffer.push({
             id:0,
             action:func,
             args:argsa,
             interval:timeout,
             times:iterations
         })-1;
-        this[t].id = setInterval((function(){
-            this.action(t);
-        }).bind(this),timeout);
-        return this[t]
+        this.buffer[t].id = setInterval(this.action.bind(this,t),timeout);
+        return t;
     }
 
     action(t){
-		if (t>this.length-1) return null;
-        if (this[t].times>0) {
-            this[t].action(...this[t].args);
-            this[t].times--;
+		if (t>this.buffer.length-1) return null;
+		var r = this.buffer[t];
+        if (r.times>0) {
+            if (r.times == 1) this.remove(this.buffer[t]);
+            else r.times--;
         }
-        else if (this[t].times == 0) {
-            this.remove(this[t]);
-        }
-        else this[t].action(...this[t].args);
+        return r.action(...r.args);
     }
 
     remove(tim){
         clearInterval(tim.id);
-        this.splice(this.indexOf(tim),1);
+        this.buffer.splice(this.buffer.indexOf(tim),1);
     }
 
 }

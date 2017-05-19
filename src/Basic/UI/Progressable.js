@@ -1,7 +1,6 @@
-export default function Progressable(c){
-  return class extends c {
+export const Progressable = (c) => class extends c {
     constructor(){
-        super()
+        super();
         if (this.constructor.defaultprogress){
           this.addProgressMonitor(this.constructor.defaultprogress);
         }
@@ -65,4 +64,5 @@ export default function Progressable(c){
         }
     }
   }
-}
+  
+export default Progressable;

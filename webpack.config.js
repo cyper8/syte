@@ -2,9 +2,9 @@ var webpack = require("webpack");
 
 var path = require('path');
 
-var publicPath         = 'http://localhost:8081/public/assets';
-// var cssName            = process.env.NODE_ENV === 'production' ? 'styles-[hash].css' : 'styles.css';
-var jsName             = process.env.NODE_ENV === 'production' ? 'bundle-[hash].js' : 'bundle.js';
+
+var publicPath         = 'http://localhost:8081/assets';
+var jsName             = process.env.NODE_ENV === 'production' ? '[name].bundle-[hash].js' : '[name].bundle.js';
 
 var plugins = [
   new webpack.DefinePlugin({
@@ -20,20 +20,25 @@ var plugins = [
 ];
 
 module.exports = {
-  entry: ['./src/Basic/index.js'],
-  devtool: 'inline-source-map',
+  entry:['client.js'],
+  //devtool: 'inline-source-map',
   plugins: plugins,
   output: {
-    path: `${__dirname}/build/`,
-    filename: jsName
+    path: `${__dirname}/assets/jslibs`,
+    filename: jsName,
+    publicPath
   },
   resolve:{
-    modules: ["./",path.resolve(__dirname,"src"), "node_modules"],
+    modules: ["./",path.resolve(__dirname,"src"), "node_modules", "assets"],
     extensions: ["*",".js"]
   },
   module:{
     rules: [
-        {test: /\.js/,use: 'babel-loader', exclude: [/node_modules/]}
-      ]
+      {
+        test: /\.js/,
+        exclude: [/node_modules/],
+        use: 'babel-loader'
+      }
+    ]
   }
 }

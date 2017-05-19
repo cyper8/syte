@@ -17,7 +17,8 @@ module.exports = function(config) {
 
 
     files: [
-      //'src/index.js',
+      'node_modules/promise-polyfill/promise.min.js',
+      './src/client.js',
       'test/**/*test.js',
     ],
 
@@ -27,7 +28,7 @@ module.exports = function(config) {
 
 
     preprocessors: {
-      //'src/index.js': ["webpack"],
+      './src/client.js': ["webpack"],
       'test/**/*test.js': ["webpack"]
     },
 

@@ -2,13 +2,13 @@
 
 /* global location, document */
 
-import element from 'UI/Elements';
+import element from 'UI/Element';
 import Progressable from 'UI/Progressable';
 
 export class ModuleStack extends Progressable(Array) {
     constructor(){
         super();
-        this.modules = [];
+        this.loaded = [];
     }
 	add(params) {
 
@@ -100,7 +100,7 @@ export class ModuleStack extends Progressable(Array) {
 	    for(var i=0;i<this.length;i++){
 	        if (this[i].mod == name){
 	            var m = this.splice(i,1);
-	            this.modules.push(m);
+	            this.loaded.push(m);
 	            return window[m.name](m.context);
 	        }
 	    }
@@ -181,5 +181,3 @@ export function ModTreeWalker(modtree,docroot,modstack){
         });
     }
 }
-
-export default { ModuleStack, addStyle, addModule, ModTreeWalker };

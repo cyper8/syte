@@ -1,4 +1,4 @@
-export default function ABtoB64(b){
+export function ABtoB64(b){
     var binaryS = '';
     var bytes = new Uint8Array(b);
     var len = bytes.byteLength;

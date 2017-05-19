@@ -1,6 +1,6 @@
-import element from 'Elements';
+import element from 'Element';
 
-export function progress(desc) {
+export default function progress(desc) {
     var p = new element("div.progress"+(desc || ""));
     p.hiddenstate = "hidden"; //any class name that will put visual container in initial state
     p.appendChild(p.bar = new element("div.progressbar"));

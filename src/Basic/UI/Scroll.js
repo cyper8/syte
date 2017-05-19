@@ -1,4 +1,4 @@
-import element from 'Elements';
+import element from 'Element';
 
 export default function scroll(direction){     // "vertical" or "horizontal"
     var scroll = element("div.scroll#scroll");

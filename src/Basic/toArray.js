@@ -1,6 +1,6 @@
 /* basic/toArray.js */
 
-export default function(is){
+export function toArray(is){
   if (!is.length) return [];
   if (is instanceof Array) return is;
   var i=is.length;
