@@ -8,7 +8,6 @@ import Progressable from 'UI/Progressable';
 export const ModuleStack = (function ModuleStack() {
     this.loaded = [];
 	this.add = function(params) {
-
     	/*
     	params = {
     	    root: //root of the module !element!,
