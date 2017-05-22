@@ -10,7 +10,9 @@ if (!process.env.C9_SH_EXECUTED){
 module.exports = function(config) {
   config.set({
 
-    basePath: '',
+    basePath: './',
+    
+    //urlRoot: '/assets/',
 
 
     frameworks: ['jasmine'],
@@ -18,7 +20,8 @@ module.exports = function(config) {
 
     files: [
       'node_modules/promise-polyfill/promise.min.js',
-      './src/client.js',
+      'src/client.js',
+      'src/trinfo.js',
       'test/**/*test.js',
     ],
 
@@ -28,8 +31,9 @@ module.exports = function(config) {
 
 
     preprocessors: {
-      './src/client.js': ["webpack"],
-      'test/**/*test.js': ["webpack"]
+      'src/client.js': ["webpack"],
+      'test/**/*test.js': ["webpack"],
+      'src/trinfo.js': ['webpack']
     },
 
     webpack: webpackConf,
@@ -50,7 +54,7 @@ module.exports = function(config) {
     colors: true,
 
 
-    logLevel: config.LOG_INFO,
+    logLevel: config.LOG_DEBUG,
 
 
     autoWatch: true,

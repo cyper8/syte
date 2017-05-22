@@ -1,6 +1,6 @@
 /*  global CustomEvent  */
 
-import { element }  from 'Element';
+import element from 'Element';
 
 export function Extendable(elem){
     elem.extendable = true;
@@ -35,3 +35,5 @@ export function section(desc){
   var section = element("div"+desc);
   return Extendable(section);
 };
+
+export default section;

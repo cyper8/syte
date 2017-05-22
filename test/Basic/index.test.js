@@ -1,7 +1,7 @@
 /* global describe, it, expect, app */
 
-import { default as Init } from 'Basic';
-var App = Init();
+import { default as App } from 'Basic';
+window.App = App;
 describe("Basic library creates a Global Object that", function(){
     it("has Network subsystem", function(){
         expect(App.Network).toBeDefined();

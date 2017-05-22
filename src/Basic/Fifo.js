@@ -1,16 +1,8 @@
 import "ClassExtension";
 
-// export var Fifo = (function Fifo(){
-//     this.pop = function(){
-//         return this.shift();
-//     };
-// }).extends(Array);
-
-export default class Fifo extends Array {
-    constructor(){
-        super(...arguments);
-    }
-    pop(){
-        return super.shift();
-    }
-}
+export default (function Fifo(){
+    this.pop = function(){
+        return this.shift();
+    };
+    if (arguments) this.concat(arguments);
+}).extends(Array);

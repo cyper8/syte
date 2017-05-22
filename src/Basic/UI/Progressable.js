@@ -1,46 +1,42 @@
-export const Progressable = (c) => class extends c {
-    constructor(){
-        super();
-        if (this.constructor.defaultprogress){
-          this.addProgressMonitor(this.constructor.defaultprogress);
-        }
-    }
-    static addDefaultProgressMonitor(defaultprogress){
-      this.constructor.defaultprogress = defaultprogress;
-      this.addProgressMonitor(this.constructor.defaultprogress);
-    }
-    addProgressMonitor(progressdisplay){
+import 'ClassExtension';
+
+export default function Progressable(parent){
+  function Progressable() {
+    this.addDefaultProgress = function(defprorss){
+      this.prototype.progress = defprorss;
+    };
+    this.addProgressMonitor=function(progressdisplay){
         this.progress = progressdisplay;
-        if (super.length) {
+        if (this.parent.length) {
             if (this.progress.show){
-                this.progress.show(super.length);
+                this.progress.show(this.parent.length);
             }
-            else this.progress.setAttribute("max",super.length);
+            else this.progress.setAttribute("max",this.parent.length);
         }
     }
-    pop(){
-        if (super.pop){
+    this.pop = function(){
+        if (this.parent.pop){
             this.progressrun(1);
-            return super.pop();
+            return this.parent.pop.call(this);
         }
     }
-    push(v){
-        if (super.push){
+    this.push=function(v){
+        if (this.parent.push){
             this.progressgrow(1);
-            return super.push(v);
+            return this.parent.push.call(this,v);
         }
     }
-    splice(){
-        if (super.splice){
+    this.splice=function(){
+        if (this.parent.splice){
             if (arguments.length>1) this.progressrun(arguments[1]);
             else {
-                this.progressrun(super.length);
+                this.progressrun(this.parent.length);
             }
             if (arguments.length>2) this.progressgrow(arguments.length-2);
-            return super.splice.apply(this,arguments);
+            return this.parent.splice.apply(this,arguments);
         }
     }
-    progressgrow(v){
+    this.progressgrow=function(v){
         if (this.progress){
             if (this.progress.show){
                 this.progress.show(this.progress.total+v);
@@ -48,7 +44,7 @@ export const Progressable = (c) => class extends c {
             else this.progress.setAttribute("max",parseInt(this.progress.getAttribute("max")||0)+v);
         }
     }
-    progressrun(v){
+    this.progressrun=function(v){
         if (this.progress){
             if (this.progress.hide){
                 this.progress.value = Math.floor(this.progress.value)+v;
@@ -63,6 +59,15 @@ export const Progressable = (c) => class extends c {
             }
         }
     }
+    if (arguments.length>0) this.splice(0,0,...arguments);
+    return this;
   }
-  
-export default Progressable;
+  try {
+    Object.defineProperty(Progressable,"name",{
+      value: "Progressable"+parent.name
+    });
+  }
+  catch(e){}
+  if (parent) return (Progressable).extends(parent);
+  else return Progressable;
+}

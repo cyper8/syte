@@ -3,8 +3,8 @@ var webpack = require("webpack");
 var path = require('path');
 
 
-var publicPath         = 'http://localhost:8081/assets';
-var jsName             = process.env.NODE_ENV === 'production' ? '[name].bundle-[hash].js' : '[name].bundle.js';
+var publicPath         = process.env.NODE_ENV === 'production' ? 'https://demo.ya64.uk/jslibs' : 'http://localhost:8081/assets';
+var jsName             = process.env.NODE_ENV === 'production' ? '[name].js?[hash]' : '[name].js';
 
 var plugins = [
   new webpack.DefinePlugin({
@@ -20,7 +20,10 @@ var plugins = [
 ];
 
 module.exports = {
-  entry:['client.js'],
+  entry:{
+    client:'client.js',
+    trinfo:'trinfo.js'
+  },
   //devtool: 'inline-source-map',
   plugins: plugins,
   output: {

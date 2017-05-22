@@ -8,3 +8,5 @@ export function element(desc){
     element.id = (id.length>0) ? (id[0].replace(/\#/,"")) : ("");
     return element;
 };
+
+export default element;

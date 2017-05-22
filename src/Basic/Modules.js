@@ -1,16 +1,13 @@
 /* basic/Modules.js */
 
 /* global location, document */
-
+import 'ClassExtension';
 import element from 'UI/Element';
 import Progressable from 'UI/Progressable';
 
-export class ModuleStack extends Progressable(Array) {
-    constructor(){
-        super();
-        this.loaded = [];
-    }
-	add(params) {
+export const ModuleStack = (function ModuleStack() {
+    this.loaded = [];
+	this.add = function(params) {
 
     	/*
     	params = {
@@ -20,7 +17,7 @@ export class ModuleStack extends Progressable(Array) {
     	        name: "<module-element-id>",
     	        data: {
                     type: "<class-name>",
-                    style: "<css-file>",
+                    style: "<css-files>",
                     content: "<html-content>",
                     action: "<module-script-file>|<URL>|none",
                     children: {}
@@ -33,14 +30,14 @@ export class ModuleStack extends Progressable(Array) {
             if (typeof params.root[params.module.name] === 'object')
                 newnode = params.root[params.module.name];
             else {
-                addStyle(params.module.data.style,function(){});
+                addStyles(params.module.data.style,console.log.bind(window,params.module.name+"\'s styles are loaded"));
                 var mtarr = params.module.data.type.split("."),mtf,mte="",mts;
                 if (mtarr.length==1) {
                     mtf = element;mte = "div";mts="."+mtarr[0];
                 }
                 else {
-                    if (typeof window[mtarr[0]] === 'function')
-                        mtf = window[mtarr[0]];
+                    if (typeof App.UI[mtarr[0]] === 'function')
+                        mtf = App.UI[mtarr[0]];
                     else {
                         mtf = element;
                         mte = (mtarr[0] == "")?("div"):(mtarr[0]);
@@ -62,7 +59,7 @@ export class ModuleStack extends Progressable(Array) {
                     params.root[params.module.name] = newnode;
                 }
                 if (params.module.data.action != "none"){
-                    if (params.mod.data.action.search(/\.js$/i) == -1){
+                    if (params.module.data.action.search(/\.js$/i) == -1){
                         newnode.addEventListener("click",function(e){
                             location.href=this.source.action;
                             e.stopPropagation();
@@ -76,27 +73,44 @@ export class ModuleStack extends Progressable(Array) {
                                 data:params.module.data,
                                 context:newnode
                             });
-                            addModule(params.module.data.action,this.run.bind(this,params.module.name))
-                            .catch(console.error);
+                            addModule(params.module.data.action,this.run.bind(this,params.module.name));
                         }
                         else return null;
                     }
                 }
             }
             newnode.classList.remove("hidden");
-            return newnode;
         }
-	}
-	addtree(tree,root){
+        return newnode;
+	};
+	this.addtree=function(tree,root){
 	    /*
 	    tree = {
             <module-name>:<module-data>,
             ...
 	    }
 	    */
-	    ModTreeWalker(tree,root,this);
-	}
-	run(name){
+        var m;
+        for (m in tree){
+            if (tree[m].children) {
+                this.addtree(tree[m].children,this.add({
+                    root:root,
+                    module:{
+                        name:m,
+                        data:tree[m]
+                    }
+                }));
+            }
+            else this.add({
+                root:root,
+                module:{
+                    name:m,
+                    data:tree[m]
+                }
+            });
+        }
+	};
+	this.run=function(name){
 	    for(var i=0;i<this.length;i++){
 	        if (this[i].mod == name){
 	            var m = this.splice(i,1);
@@ -104,14 +118,14 @@ export class ModuleStack extends Progressable(Array) {
 	            return window[m.name](m.context);
 	        }
 	    }
-	}
-	loadstate(n){
+	};
+	this.loadstate=function(n){
 		for (var i=0; i<this.length;i++){
 			if (this[i].mod == n) return this[i];
 		}
 		return null;
 	}
-}
+}).extends(Progressable(Array));
 
 function checkRes(restype,url){
     var n,s = document.getElementsByTagName(restype);
@@ -122,7 +136,7 @@ function checkRes(restype,url){
 }
 
 export function addModule(url,callback){
-    if (!url || checkRes("script",url)) return null;
+    if (!url || checkRes("script",url)) return callback();
     else return new Promise(function(success){
         var m=document.createElement("script");
         m.type='text/javascript';
@@ -143,41 +157,33 @@ function addStyleSheet(url,callback){
         css.href=url;
     }).then(callback);
 }
-
-export function addStyle(style,callback){
-    if (typeof style === "string"){
-        if (style.search(/\{\.*\}/) != -1) {
-            return new Promise(function(success){
-                var css = document.createElement("style");
-                css.type = "text/css";
-                document.head.appendChild(css);
-                css.sheet.insertRule(style, css.sheet.cssRules.length);
-                success();
-            });
-        }
-        else return addStyleSheet(style,callback);
-    }
-    else throw new Error("Wrong style argument type");
+function addStyle(style,callback){
+    return new Promise(function(success){
+        var css = document.createElement("style");
+        css.type = "text/css";
+        document.head.appendChild(css);
+        css.sheet.insertRule(style, css.sheet.cssRules.length);
+        success();
+    })
+    .then(callback);
 }
-
-export function ModTreeWalker(modtree,docroot,modstack){
-    var m;
-    for (m in modtree){
-        if (modtree[m].children) {
-            ModTreeWalker(modtree[m].children,modstack.add({
-                root:docroot,
-                module:{
-                    name:m,
-                    data:modtree[m]
-                }
-            }),modstack);
-        }
-        else modstack.add({
-            root:docroot,
-            module:{
-                name:m,
-                data:modtree[m]
-            }
-        });
+export function addStyles(styles,callback){
+    var astyles = (styles instanceof Array) ? styles : [styles];
+    var counter = astyles.reduce(function(acc,e,i,a){
+       if (typeof e === "string"){
+           if (e.search(/\{\.*\}/) != -1){
+                addStyle(e,finish);
+                return acc+1;
+           }
+           else if (e.search(/\.css$/) != -1){
+               addStyleSheet(e,finish);
+               return acc+1;
+           }
+       }
+       return acc;
+    },0);
+    function finish(){
+        counter--;
+        if (counter<=0) callback();
     }
 }

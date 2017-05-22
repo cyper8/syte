@@ -1,14 +1,13 @@
+import 'ClassExtension';
 import Fifo from 'Fifo';
 import Progressable from 'UI/Progressable';
+import Suspendable from 'Suspendable';
 import ajax from 'Ajax';
 
-export default class Network extends Progressable(Fifo) {
-    constructor(){
-        super();
-        this._xhr = null;
-        this.active = false;
-    }
-    test(url,handler){
+export default Suspendable((function Network() {
+    this._xhr = null;
+    this.active = false;
+    this.test=function(url,handler){
         this._xhr = new XMLHttpRequest();
         this._xhr.addEventListener("readystatechange",function(e){
             var _status;
@@ -18,8 +17,8 @@ export default class Network extends Progressable(Fifo) {
                 handler(_status);
             }
         })
-    }
-    request(req){
+    };
+    this.request=function(req){
         if (req.url == "" || (typeof req.resulthandler !== "function")) return false;
         var r = {
             method: "GET",
@@ -42,8 +41,8 @@ export default class Network extends Progressable(Fifo) {
             this.push(r);
             this.action();
         }
-    }
-    download(url){
+    };
+    this.download=function(url){
         return new Promise(function(success){
             this.request({
                 method:"GET",
@@ -52,8 +51,8 @@ export default class Network extends Progressable(Fifo) {
                 resulthandler: success
             });
         });
-    }
-    action(){
+    };
+    this.action=function(){
         if (!this.active){
             if (this.length > 0){
                 var r = this[0];
@@ -68,8 +67,8 @@ export default class Network extends Progressable(Fifo) {
                 });
             }
         }
-    }
-    answer(res){
+    };
+    this.answer=function(res){
         if (! res instanceof Error) {
             var a = this[0].resulthandler;
             if (typeof a === "function"){
@@ -86,5 +85,5 @@ export default class Network extends Progressable(Fifo) {
         this._xhr = null;
         this.active = false;
         this.action();
-    }
-}
+    };
+}).extends(Progressable(Fifo)));

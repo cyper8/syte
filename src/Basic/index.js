@@ -1,15 +1,14 @@
 /*basic.js*/
-import { UI } from 'UI';
-import { addStyle, ModuleStack } from 'Modules';
+import { default as UI } from 'UI';
+import { addStyles, ModuleStack } from 'Modules';
 import CookieStack from 'CookieStack';
 import Network from 'Network';
 import Reader from 'Reader';
 import TimerStack from 'TimerStack';
 
-addStyle('/styles/basic.css',function(){console.log("Basic styles applied")});
+addStyles('styles/basic.css',function(){console.log("Basic styles applied")});
 
-export default function(){
-  return {
+export default {
     UI,
     Network: new Network(),
     Cookies: new CookieStack(),
@@ -17,4 +16,3 @@ export default function(){
     Timers: new TimerStack(),
     Modules: new ModuleStack()
   };
-}
