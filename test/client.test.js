@@ -1,2 +1,2 @@
-import App from './client.js';
+//import myApp from './client.js';
 

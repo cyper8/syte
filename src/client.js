@@ -1,7 +1,7 @@
-import { default as App } from 'Basic';
+import { App } from 'basic-library';
 
-window.App = App;
-App.Modules.addtree({
+var myApp = window.myApp = App([]);
+myApp.ModuleStack.addtree({
     mainprogress: {
         type:"progress.bar",
         style: "",
@@ -92,4 +92,4 @@ App.Modules.addtree({
     }
 },document.body);
 
-export default App;
+export default myApp;

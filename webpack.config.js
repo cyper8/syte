@@ -1,10 +1,11 @@
-var webpack = require("webpack");
-
-var path = require('path');
+const webpack = require("webpack");
+const path = require('path');
+const env = process.env.NODE_ENV;
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 
 var publicPath         = process.env.NODE_ENV === 'production' ? 'https://demo.ya64.uk/jslibs' : 'http://localhost:8081/assets';
-var jsName             = process.env.NODE_ENV === 'production' ? '[name].js?[hash]' : '[name].js';
+var jsName             = process.env.NODE_ENV === 'production' ? '[name]-[hash].js' : '[name].js';
 
 var plugins = [
   new webpack.DefinePlugin({
@@ -16,6 +17,9 @@ var plugins = [
   }),
   new webpack.LoaderOptionsPlugin({
     debug: process.env.NODE_ENV !== 'production'
+  }),
+  new ExtractTextPlugin({
+    filename: '../styles/[id].css'
   })
 ];
 
@@ -32,8 +36,8 @@ module.exports = {
     publicPath
   },
   resolve:{
-    modules: ["./",path.resolve(__dirname,"src"), "node_modules", "assets"],
-    extensions: ["*",".js"]
+    modules: [path.resolve(__dirname,"src"), "node_modules"],
+    extensions: ["*",".js", ".css"]
   },
   module:{
     rules: [
@@ -41,6 +45,21 @@ module.exports = {
         test: /\.js/,
         exclude: [/node_modules/],
         use: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        exclude: [/node_modules/],
+        use: ExtractTextPlugin.extract({
+              fallback: 'style-loader/url',
+              use: [ 'css-loader' ]
+          })
+      },
+      {
+        test: /\.(png|jpg|gif|svg|eot|ttf|woff|woff2)$/,
+        loader: 'url-loader',
+        options: {
+          limit: 10000
+        }
       }
     ]
   }
