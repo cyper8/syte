@@ -1,4 +1,4 @@
-import { App } from 'basic-library';
+import { App, Basic } from 'basic-library';
 
 var myApp = window.myApp = App([]);
 myApp.ModuleStack.addtree({

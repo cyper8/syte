@@ -219,7 +219,7 @@ body {
     margin: 0px;
     font-family: sans-serif;
     background-color: #000000;
-    background: url('/cgi-bin/randpic.cgi') fixed center center no-repeat;
+    background: /*url('/cgi-bin/randpic.cgi') fixed center center no-repeat*/ none;
     background-size: cover;
     color:snow;
     text-align: center;
