@@ -5,7 +5,7 @@ var express = require("express")
 , app = express();
 
 app.use(require("helmet")());
-app.use(bodyParser.json());
+app.use(jsonParser);
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/',jsonParser,function(req,res){
