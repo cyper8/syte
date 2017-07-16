@@ -15,4 +15,5 @@ app.get('/',jsonParser,function(req,res){
 
 app.use(express.static('../assets',{maxAge:1000}));
 
-app.listen(process.env.PORT, process.env.IP, function () { console.log('Listening on ' + process.env.PORT) });
+app.listen(process.env.PORT||3000, process.env.IP||"127.0.0.1",
+  function () { console.log('Listening on ' + process.env.PORT|3000) });

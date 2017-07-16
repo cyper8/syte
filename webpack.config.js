@@ -4,19 +4,19 @@ const env = process.env.NODE_ENV;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const srcRoot = path.resolve(__dirname, "src");
 
-var publicPath         = process.env.NODE_ENV === 'production' ? 'https://demo.ya64.uk/' : 'http://localhost:8081/assets/';
-var jsName             = process.env.NODE_ENV === 'production' ? '[name]-[hash].js' : '[name].js';
+var publicPath         = env === 'production' ? 'https://demo.ya64.uk/' : 'http://localhost:8081/assets/';
+var jsName             = env === 'production' ? '[name]-[hash].js' : '[name].js';
 
 var plugins = [
   new webpack.DefinePlugin({
     'process.env': {
       BROWSER:  JSON.stringify(true),
-      NODE_ENV: JSON.stringify(process.env.NODE_ENV || 'development'),
+      NODE_ENV: JSON.stringify(env || 'development'),
       C9_SH_EXECUTED: JSON.stringify(process.env.C9_SH_EXECUTED || 0)
     }
   }),
   new webpack.LoaderOptionsPlugin({
-    debug: process.env.NODE_ENV !== 'production'
+    debug: env !== 'production'
   })
 ];
 
@@ -47,7 +47,7 @@ module.exports = {
       {
         test: /\.css$/,
         //exclude: [/node_modules/],
-        use: ['style-loader/url', 
+        use: ['style-loader/url',
           'file-loader?name=[name].[ext]&publicPath='+publicPath+'styles/&outputPath=../styles/' ]
       },
       {
