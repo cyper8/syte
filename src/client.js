@@ -1,6 +1,6 @@
 import { App, Basic } from 'basic-library';
 
-var myApp = window.myApp = App([]);
+var myApp = App([]);
 myApp.ModuleStack.addtree({
     mainprogress: {
         type:"progress.bar",

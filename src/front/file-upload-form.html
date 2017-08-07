@@ -1,0 +1,203 @@
+<!--
+  upload file form
+-->
+<link rel="import" href="../../bower_components/polymer/polymer-element.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-repeat.html">
+<link rel="import" href="../../bower_components/polymer/lib/elements/dom-if.html">
+<link rel="import" href="../../bower_components/paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../../bower_components/paper-progress/paper-progress.html">
+<link rel="import" href="../../bower_components/paper-card/paper-card.html">
+<link rel="import" href="../../bower_components/iron-icon/iron-icon.html">
+<link rel="import" href="my-icons.html">
+
+<dom-module id="file-upload-form">
+  <template>
+    <style>
+      :host {
+        display: block;
+        padding:0.5em;
+      }
+      
+      form {
+        background: white;
+      }
+      
+      form:not([action]) {
+        display: none;
+      }
+      
+      form[empty] > paper-icon-button, input[type=file] {
+        display: none;
+      }
+      
+      form:not([empty]) > label {
+        opacity: 0.6;
+      }
+      
+      form[uploading] paper-icon-button, form[uploading] label {
+        z-index: -1;
+        opacity: 0.5;
+      }
+      
+      paper-icon-button {
+        color: white;
+        background-color: #4285f4;
+      }
+      
+      .fileCard {
+        display: block;
+        padding:0.5em;
+      }
+    </style>
+    <form id="fileUploadForm" name=postfile class='uploadform' uploading={{uploading}} action='[[action]]' method=POST enctype='multipart/form-data' empty$={{!hasfiles}}>
+      <template is="dom-if" if=[[csrfToken]]>
+        <input type="hidden" name="_csrf" value$="[[csrfToken]]">
+      </template>
+      <input type='file' id='fileInput' name="uploadfile[]" multiple='multiple' size='50' empty$={{!hasfiles}} on-change="check">
+      <label for="fileInput" empty$={{!hasfiles}}>
+        <paper-icon-button id='addFiles' icon="my-icons:file"></paper-icon-button>
+      </label>
+      <paper-icon-button icon="my-icons:upload" id="uploadFiles" empty$={{!hasfiles}} on-click="upload"></paper-icon-button>
+      <paper-icon-button icon="my-icons:close" id="resetForm" on-click="clear"></paper-icon-button>
+      <template is="dom-if" if={{hasfiles}}>
+        <template is="dom-repeat" items={{files}}>
+          <paper-card class="fileCard" alt=[[item.name]] heading="[[index]]:" image=[[item.preview]] error={{item.error}}>
+            <span class="fileName">[[item.name]]</span>
+            <span class="fileSize">[[item.size]]</span>
+            <template is="dom-if" if="[[item.progress]]">
+              <paper-progress value="[[item.progress]]"></paper-progress>
+            </template>
+          </paper-card>
+        </template>
+      </template>
+    </form>
+  </template>
+  <script>
+    
+    class FileUploadForm extends Polymer.Element {
+      
+      static get is() { return 'file-upload-form'; }
+      
+      static get properties(){
+        return {
+          action: {
+            type: String,
+            reflectToAttribute: true
+          },
+          csrfToken: String,
+          hasfiles: {
+            type:Boolean,
+            reflectToAttribute: true
+          },
+          files: {
+            type: Array,
+            notify: true
+          },
+          preview: {
+            type: Function,
+            value(file){
+              
+            }
+          },
+          uploading: {
+            type: Boolean,
+            reflectToAttribute: true,
+            value: false
+          }
+        }
+      }
+      constructor(){
+        super();
+        this.init();
+      }
+      
+      ready(){
+        super.ready();
+      }
+      
+      clear(){
+        if (this.uploading) return;
+        this.$.fileUploadForm.reset();
+        this.init();
+      }
+      
+      upload(){
+        if (this.uploading) return;
+        else this.set("uploading",true);
+        var self = this;
+        if (FormData) {
+          // XHR+FormData solution with progress animation
+          Promise.all(self.files.map(function(file,index,files){
+            return new Promise(function (resolve,reject){
+              var filepack = new FormData();
+              if (self.csrfToken) filepack.append("_csrf",self.csrfToken);
+              filepack.append('uploadfile[]', file, file.name);
+              var sender = new XMLHttpRequest();
+              sender.onload=function(e){
+                resolve();
+              };
+              sender.ontimeout=function(e){
+                this.abort();
+                file.error = true;
+                self.set("files."+index,file);
+                reject(new Error(`Error uploading ${file.name}: timeout reached`));
+              };
+              sender.upload.onprogress=function(e){
+                if (e.lengthComputable) {
+                  file.progress = e.loaded*e.total*100;
+                  self.set("files."+index,file);
+                }
+              }
+              sender.open("POST",(new URL(self.action,location.origin)).href);
+              sender.responseType = "json";
+              sender.setRequestHeader("Accept","text/json");
+              sender.send(filepack);
+            })
+          })).then(function(){self.set("uploading",false);self.clear()})
+          .catch(function(error){
+            console.error(error);
+            self.set("uploading",false);
+            self.clear();
+          });
+        }
+        else {
+          this.$.fileUploadForm.submit();
+        }
+      }
+      
+      init(){
+        this.set("files",[]);
+        this.set("hasfiles",false);
+      }
+      
+      check(){
+        var maxsize = 104857600;
+        var fileInput = this.$.fileInput;
+        var files = fileInput.files||[{name:fileInput.value,size:undefined,preview:"my-icons:file"}];
+        var totalsize=0,output=[];
+        for (var i=0;i<files.length;i++){
+          var file = files[i];
+          if (file.name.search(/\.(exe|com|msi|dll|tmp|sfx)/ig) == -1) {
+            if (file.name.search(/(\.+\/|[!\/\\\$\{\}])/ig) == -1) {
+              if ((totalsize+file.size)<maxsize) {
+                file.preview = (file.name.search(/\.(jpe?g|png|gif)/ig) > 0)?
+                  URL.createObjectURL(file):
+                  "my-icons:file";
+                output.push(file);
+                totalsize+=file.size;
+              }
+            }
+          }
+        }
+        if (output.length) {
+          this.set("hasfiles",true);
+          this.set("files",output);
+        }
+        else this.clear();
+      }
+      
+    }
+    
+    window.customElements.define(FileUploadForm.is,FileUploadForm);
+  </script>
+</dom-module>

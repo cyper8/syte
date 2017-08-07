@@ -1,8 +1,9 @@
+#!/usr/bin/python
 import sys, cgi, os, re
 from urlparse import urlparse
 
 
-print ("Content-type: text/html")
+print ("Content-type: text/json")
 print ("")
 status = True
 form = cgi.FieldStorage()
@@ -46,6 +47,6 @@ if status:
         sys.stdout.write("UPDATE")
         os.remove("/var/www/download/web-update.tar.gz")
     else:
-        sys.stdout.write("OK")
+        sys.stdout.write('{"status":"OK"}')
 else:
-    sys.stdout.write("FAIL")
+    sys.stdout.write('{"status":"FAIL"}')

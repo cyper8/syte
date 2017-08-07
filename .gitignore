@@ -4,6 +4,6 @@
 /cgi-bin/secure/.users
 /cgi-bin/secure/.wall
 
-/node_modules
-
-/build
+bower_components/
+build/
+node_modules/
